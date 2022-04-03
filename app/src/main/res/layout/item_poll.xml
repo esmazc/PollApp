@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="163dp"
+    android:layout_height="163dp"
+    android:layout_marginEnd="12dp"
+    android:layout_marginBottom="10dp"
+    android:background="#FFFFFF"
+    app:cardBackgroundColor="#ADCDCA"
+    app:cardCornerRadius="20dp"
+    app:strokeWidth="2dp"
+    app:strokeColor="#65435A">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:cardCornerRadius="40dp">
+
+            <ImageView
+                android:id="@+id/state"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="99dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#323333"
+            app:layout_constraintEnd_toStartOf="@+id/cardView"
+            app:layout_constraintHorizontal_bias="0.085"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:textColor="#323333"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name" />
+
+        <ProgressBar
+            android:id="@+id/progresZavrsetka"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="126dp"
+            android:layout_height="19dp"
+            android:layout_marginTop="16dp"
+            android:background="#77506A"
+            android:max="100"
+            android:min="0"
+            android:progress="20"
+            android:scrollbarSize="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.486"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/number" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="145dp"
+            android:layout_height="23dp"
+            android:background="@drawable/textview_back"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textColorLink="#00000000"
+            android:textSize="10sp"
+            android:textColor="#323333"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.52"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progresZavrsetka"
+            app:layout_constraintVertical_bias="0.2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
