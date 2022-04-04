@@ -58,7 +58,7 @@ class UpisIstrazivanje : AppCompatActivity() {
                 //val istrazivanjaList1: List<String> = istrazivanjaList.stream().map { istrazivanje -> istrazivanje.naziv }.toList()
                 spinnerIstrazivanjeAdapter = ArrayAdapter(applicationContext, android.R.layout.simple_spinner_dropdown_item, istrazivanjaList1)
                 spinnerIstrazivanje.adapter = spinnerIstrazivanjeAdapter
-                //***promijeniti if
+                //***promijeniti if i izbrisati "" u listOf
                 if(istrazivanjaList1.size == 1) {
                 //if(istrazivanjaList1.isEmpty()) {
                     spinnerGrupaAdapter = ArrayAdapter(applicationContext, android.R.layout.simple_spinner_dropdown_item, listOf(""))

@@ -1,13 +1,12 @@
 package ba.etf.rma22.projekat.viewmodel
 
 import ba.etf.rma22.projekat.data.models.Anketa
-import ba.etf.rma22.projekat.data.polls
 import ba.etf.rma22.projekat.data.repositories.AnketaRepository
 
 class PollListViewModel {
 
     fun getAll(): List<Anketa> {
-        return AnketaRepository.getAll();
+        return AnketaRepository.getAll()
     }
 
     fun getMyAnkete(): List<Anketa> {
@@ -25,4 +24,5 @@ class PollListViewModel {
     fun getNotTaken(): List<Anketa> {
         return AnketaRepository.getNotTaken()
     }
+
 }

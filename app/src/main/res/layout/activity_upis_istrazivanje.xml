@@ -39,8 +39,8 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="50dp"
             android:layout_marginEnd="10dp"
-            android:text="Odaberite godinu"
-            android:textSize="18dp"
+            android:text="Odaberite godinu:"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <Spinner
@@ -53,13 +53,13 @@
             android:textAlignment="viewEnd" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="50dp"
             android:layout_marginEnd="10dp"
-            android:text="Odaberite istraživanje"
+            android:text="Odaberite istraživanje:"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -73,13 +73,13 @@
             android:textAlignment="viewEnd" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="50dp"
             android:layout_marginEnd="10dp"
-            android:text="Odaberite grupu"
+            android:text="Odaberite grupu:"
             android:textSize="18sp"
             android:textStyle="bold" />
 

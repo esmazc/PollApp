@@ -22,4 +22,5 @@ class UpisIstrazivanjeViewModel {
     fun getGroupsByIstrazivanje(nazivIstrazivanja: String): List<Grupa> {
         return GrupaRepository.getGroupsByIstrazivanje(nazivIstrazivanja)
     }
+
 }

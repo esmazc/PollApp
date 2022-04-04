@@ -53,7 +53,7 @@ class UtilTestClass {
                 RecyclerViewActions.scrollTo<RecyclerView.ViewHolder>(
                     CoreMatchers.allOf(
                         ViewMatchers.hasDescendant(ViewMatchers.withText(k.naziv)),
-                        ViewMatchers.hasDescendant(ViewMatchers.withText(k.nazivIstrazivanja))
+                        ViewMatchers.hasDescendant(ViewMatchers.withText(k.nazivIstrazivanja)),
                     )
                 )
 

@@ -7,7 +7,7 @@ object AnketaRepository {
     private val korisnik = KorisnikRepository.korisnik
 
     fun getAll(): List<Anketa> {
-        return polls();
+        return polls()
     }
 
     fun getMyAnkete(): List<Anketa> {
@@ -49,4 +49,5 @@ object AnketaRepository {
         }
         return myNotTaken
     }
+
 }

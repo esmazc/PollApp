@@ -9,8 +9,9 @@ fun researches(): List<Istrazivanje> {
     return listOf(
         Istrazivanje("Istraživanje broj 1", 3),
         Istrazivanje("Istraživanje broj 2", 1),
-        Istrazivanje("Istraživanje broj 3", 4),
+        Istrazivanje("Istraživanje broj 3", 3),
         Istrazivanje("Istraživanje broj 4", 1),
+        Istrazivanje("Istraživanje broj 5", 4)
     )
 }
 
@@ -24,7 +25,9 @@ fun groups(): List<Grupa> {
         Grupa("Grupa2", "Istraživanje broj 3"),
         Grupa("Grupa1", "Istraživanje broj 4"),
         Grupa("Grupa2", "Istraživanje broj 4"),
-        Grupa("Grupa3", "Istraživanje broj 4")
+        Grupa("Grupa3", "Istraživanje broj 4"),
+        Grupa("Grupa1", "Istraživanje broj 5"),
+        Grupa("Grupa2", "Istraživanje broj 5")
     )
 }
 
@@ -57,7 +60,9 @@ fun polls(): List<Anketa> {
         Anketa("Anketa 2", "Istraživanje broj 3", date4, date4, null, 2,"Grupa2", 0.0F),
         Anketa("Anketa 1", "Istraživanje broj 4", date4, date2, null, 2,"Grupa1", 0.0F),
         Anketa("Anketa 1", "Istraživanje broj 4", date1, date3, null, 4,"Grupa2", 0.0F),
-        Anketa("Anketa 1", "Istraživanje broj 4", date3, date2, null, 1,"Grupa3", 0.0F)
+        Anketa("Anketa 1", "Istraživanje broj 4", date3, date2, null, 1,"Grupa3", 0.0F),
+        Anketa("Anketa 1", "Istraživanje broj 5", date4, date2, null, 2,"Grupa1", 0.0F),
+        Anketa("Anketa 1", "Istraživanje broj 5", date1, date4, date3, 4,"Grupa2", 0.0F)
     )
 
 }

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ba.etf.rma22.projekat.R
 import ba.etf.rma22.projekat.data.models.Anketa
 import java.text.SimpleDateFormat
+import kotlin.math.floor
 
 class PollListAdapter(private var polls: List<Anketa>) : RecyclerView.Adapter<PollListAdapter.PollViewHolder>() {
 
@@ -30,7 +31,7 @@ class PollListAdapter(private var polls: List<Anketa>) : RecyclerView.Adapter<Po
     }
 
     override fun onBindViewHolder(viewHolder: PollViewHolder, position: Int) {
-        viewHolder.pollName.text = polls[position].naziv                     //nazivGrupe?
+        viewHolder.pollName.text = polls[position].naziv
         viewHolder.pollNumber.text = polls[position].nazivIstrazivanja
 
         val state: String = polls[position].stanje.name1
@@ -48,7 +49,7 @@ class PollListAdapter(private var polls: List<Anketa>) : RecyclerView.Adapter<Po
         }
         viewHolder.pollDate.text = s
 
-        var progres: Float = (Math.ceil((polls[position].progres * 10).toDouble()) * 10).toFloat()
+        var progres: Float = (floor((polls[position].progres * 10).toDouble()) * 10).toFloat()
         if((progres / 2) % 2 != 0F)
             progres += 10F
         viewHolder.pollProgressBar.progress = progres.toInt()
@@ -60,4 +61,5 @@ class PollListAdapter(private var polls: List<Anketa>) : RecyclerView.Adapter<Po
         this.polls = polls
         notifyDataSetChanged()
     }
+
 }
