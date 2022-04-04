@@ -1,5 +1,6 @@
 package ba.etf.rma22.projekat.view
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
@@ -30,6 +31,7 @@ class PollListAdapter(private var polls: List<Anketa>) : RecyclerView.Adapter<Po
         return PollViewHolder(view)
     }
 
+    @SuppressLint("SimpleDateFormat")
     override fun onBindViewHolder(viewHolder: PollViewHolder, position: Int) {
         viewHolder.pollName.text = polls[position].naziv
         viewHolder.pollNumber.text = polls[position].nazivIstrazivanja
