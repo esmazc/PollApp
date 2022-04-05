@@ -51,9 +51,9 @@ class PollListAdapter(private var polls: List<Anketa>) : RecyclerView.Adapter<Po
         }
         viewHolder.pollDate.text = s
 
-        var progres: Float = (floor((polls[position].progres * 10).toDouble()) * 10).toFloat()
+        var progres: Float = floor(polls[position].progres * 10) * 10
         if((progres / 2) % 2 != 0F)
-            progres += 10F
+            progres += 10
         viewHolder.pollProgressBar.progress = progres.toInt()
     }
 
