@@ -15,9 +15,7 @@ class AnketaRepositoryTest {
     @Test
     fun testGetAll() {
         val polls = AnketaRepository.getAll()
-        assertEquals(polls.size,13)
-        //assertThat(movies, hasItem<Anketa>(hasProperty("title", Is("Ratatouille"))))
-        //assertThat(movies, not(hasItem<Anketa>(hasProperty("title", Is("Contratiempo")))))
+        assertEquals(polls.size,15)
     }
 
     @Test
@@ -25,6 +23,11 @@ class AnketaRepositoryTest {
         val polls = AnketaRepository.getMyAnkete()
         assertEquals(polls.size,5)
         assertTrue(polls.stream().allMatch { poll -> poll.nazivIstrazivanja == "Istraživanje broj 1" || poll.nazivIstrazivanja == "Istraživanje broj 5" })
+        assertEquals(polls[0].nazivGrupe, "Grupa2")
+        assertEquals(polls[1].nazivGrupe, "Grupa2")
+        assertEquals(polls[2].nazivGrupe, "Grupa1")
+        assertEquals(polls[3].nazivGrupe, "Grupa1")
+        assertEquals(polls[4].nazivGrupe, "Grupa1")
     }
 
     @Test

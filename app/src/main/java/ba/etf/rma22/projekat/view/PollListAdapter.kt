@@ -44,7 +44,7 @@ class PollListAdapter(private var polls: List<Anketa>) : RecyclerView.Adapter<Po
         var s = SpannableStringBuilder()
         val formatter = SimpleDateFormat("dd.MM.yyyy.")
         when(state) {
-            "plava" -> s = SpannableStringBuilder().append("Anketa urađena: ").bold { append(formatter.format(polls[position].datumRada)) }  //null?
+            "plava" -> s = SpannableStringBuilder().append("Anketa urađena: ").bold { append(formatter.format(polls[position].datumRada)) }
             "zelena" -> s = SpannableStringBuilder().append("Vrijeme zatvaranja: ").bold { append(formatter.format(polls[position].datumKraj)) }
             "crvena" -> s = SpannableStringBuilder().append("Anketa zatvorena: ").bold { append(formatter.format(polls[position].datumKraj)) }
             "zuta" -> s = SpannableStringBuilder().append("Vrijeme aktiviranja: ").bold { append(formatter.format(polls[position].datumPocetak)) }

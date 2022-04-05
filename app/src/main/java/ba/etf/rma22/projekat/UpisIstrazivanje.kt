@@ -35,7 +35,6 @@ class UpisIstrazivanje : AppCompatActivity() {
         val godineList = listOf("1", "2", "3", "4", "5")
         spinnerGodinaAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, godineList)
         spinnerGodina.adapter = spinnerGodinaAdapter
-        //val s: String = KorisnikRepository.korisnik.naziviIstrazivanja.last()
         val s: String = KorisnikRepository.korisnik.parovi.last().first
         var godina: Int = upisIstrazivanjeViewModel.getAll().find { istrazivanje -> istrazivanje.naziv == s }!!.godina
         spinnerGodina.setSelection(godina-1)
@@ -48,24 +47,20 @@ class UpisIstrazivanje : AppCompatActivity() {
                 val x = upisIstrazivanjeViewModel.getUpisani().stream().map { istr -> istr.naziv }.toList()
                 val istrazivanjaList1: ArrayList<String> = arrayListOf()
                 //***obrisati
-                if(istrazivanje == "") istrazivanjaList1.add("")
-                else istrazivanjaList1.remove("")
+                istrazivanjaList1.add("")
                 //*****
                 for(ist: Istrazivanje in istrazivanjaList)
                     if(!x.contains(ist.naziv))
                         istrazivanjaList1.add(ist.naziv)
-                //istrazivanjaList.filter { istrazivanje -> !upisIstrazivanjeViewModel.getUpisani().stream().map { istr -> istr.naziv }.toList().contains(istrazivanje.naziv) }
-                //val istrazivanjaList1: List<String> = istrazivanjaList.stream().map { istrazivanje -> istrazivanje.naziv }.toList()
                 spinnerIstrazivanjeAdapter = ArrayAdapter(applicationContext, android.R.layout.simple_spinner_dropdown_item, istrazivanjaList1)
                 spinnerIstrazivanje.adapter = spinnerIstrazivanjeAdapter
-                //***promijeniti if i izbrisati "" u listOf
+                //***promijeniti if i izbrisati "" iz listOf
                 if(istrazivanjaList1.size == 1) {
                 //if(istrazivanjaList1.isEmpty()) {
                     spinnerGrupaAdapter = ArrayAdapter(applicationContext, android.R.layout.simple_spinner_dropdown_item, listOf(""))
                     spinnerGrupa.adapter = spinnerGrupaAdapter
                 }
                 //******
-                //button.isEnabled = istrazivanjaList1.size != 1
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
             }
@@ -76,13 +71,11 @@ class UpisIstrazivanje : AppCompatActivity() {
                 val grupaList = upisIstrazivanjeViewModel.getGroupsByIstrazivanje(istrazivanje)
                 val grupaList1: ArrayList<String> = arrayListOf()
                 //***obrisati
-                if(grupa == "") grupaList1.add("")
-                else grupaList1.remove("")
+                grupaList1.add("")
                 //*****
                 grupaList1.addAll(grupaList.stream().map { grupa -> grupa.naziv }.toList())
                 spinnerGrupaAdapter = ArrayAdapter(applicationContext, android.R.layout.simple_spinner_dropdown_item, grupaList1)
                 spinnerGrupa.adapter = spinnerGrupaAdapter
-                //button.isEnabled = grupaList1.size != 1
                 button.isEnabled = !(istrazivanje == "" || grupa == "")
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -99,8 +92,6 @@ class UpisIstrazivanje : AppCompatActivity() {
         }
 
         button.setOnClickListener {
-            //KorisnikRepository.korisnik.naziviIstrazivanja.add(istrazivanje)
-            //KorisnikRepository.korisnik.naziviGrupa.add(grupa)
             KorisnikRepository.korisnik.parovi.add(Pair(istrazivanje, grupa))
             val intent = Intent(applicationContext, MainActivity::class.java)
             finish()

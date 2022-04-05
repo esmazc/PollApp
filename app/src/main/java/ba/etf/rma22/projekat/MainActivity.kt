@@ -54,7 +54,6 @@ class MainActivity : AppCompatActivity() {
         button.setOnClickListener {
             val intent = Intent(this, UpisIstrazivanje::class.java)
             startActivity(intent)
-            pollsAdapter.updatePolls(pollListViewModel.getMyAnkete().sortedBy { poll -> poll.datumPocetak })
         }
     }
 

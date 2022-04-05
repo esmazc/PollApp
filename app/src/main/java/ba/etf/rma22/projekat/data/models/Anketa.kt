@@ -44,6 +44,7 @@ data class Anketa(
 
         if (naziv != other.naziv) return false
         if (nazivIstrazivanja != other.nazivIstrazivanja) return false
+        if (nazivGrupe != other.nazivGrupe) return false
 
         return true
     }
@@ -51,6 +52,7 @@ data class Anketa(
     override fun hashCode(): Int {
         var result = naziv.hashCode()
         result = 31 * result + nazivIstrazivanja.hashCode()
+        result = 31 * result + nazivGrupe.hashCode()
         return result
     }
 

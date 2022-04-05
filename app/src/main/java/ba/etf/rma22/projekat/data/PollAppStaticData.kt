@@ -51,7 +51,7 @@ fun polls(): List<Anketa> {
 
     return listOf(
         Anketa("Anketa 1", "Istraživanje broj 1", date1, date2, date3, 3,"Grupa1", 1.0F),
-        Anketa("Anketa 2", "Istraživanje broj 1", date1, date3, null, 5,"Grupa1", 0.55F),
+        Anketa("Anketa 2", "Istraživanje broj 1", date1, date3, null, 5,"Grupa2", 0.55F),
         Anketa("Anketa 1", "Istraživanje broj 1", date1, date4, null, 3,"Grupa2", 0.25F),
         Anketa("Anketa 1", "Istraživanje broj 2", date1, date2, null, 3,"Grupa1", 0.0F),
         Anketa("Anketa 1", "Istraživanje broj 2", date2, date2, null, 1,"Grupa2", 0.0F),
@@ -62,7 +62,9 @@ fun polls(): List<Anketa> {
         Anketa("Anketa 1", "Istraživanje broj 4", date1, date3, null, 4,"Grupa2", 0.0F),
         Anketa("Anketa 1", "Istraživanje broj 4", date3, date2, null, 1,"Grupa3", 0.0F),
         Anketa("Anketa 1", "Istraživanje broj 5", date4, date2, null, 2,"Grupa1", 0.0F),
-        Anketa("Anketa 1", "Istraživanje broj 5", date1, date4, date3, 4,"Grupa2", 0.0F)
+        Anketa("Anketa 1", "Istraživanje broj 5", date3, date4, date3, 4,"Grupa2", 0.0F),
+        Anketa("Anketa 2", "Istraživanje broj 5", date1, date4, date1, 2,"Grupa1", 1.0F),
+        Anketa("Anketa 3", "Istraživanje broj 5", date1, date3, date3, 4,"Grupa1", 1.0F)
     )
 
 }
