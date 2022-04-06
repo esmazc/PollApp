@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="163dp"
     android:layout_height="163dp"
-    android:layout_marginEnd="12dp"
+    android:layout_marginEnd="10dp"
     android:layout_marginBottom="10dp"
     android:background="#FFFFFF"
     app:cardBackgroundColor="#ADCDCA"
     app:cardCornerRadius="20dp"
-    app:strokeWidth="2dp"
-    app:strokeColor="#65435A">
+    app:strokeColor="#65435A"
+    app:strokeWidth="2dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -21,9 +21,9 @@
             android:layout_height="10dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            app:cardCornerRadius="40dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:cardCornerRadius="40dp">
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/state"
@@ -38,9 +38,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="10dp"
+            android:textColor="#323333"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="#323333"
             app:layout_constraintEnd_toStartOf="@+id/cardView"
             app:layout_constraintHorizontal_bias="0.085"
             app:layout_constraintStart_toStartOf="parent"
@@ -80,9 +80,9 @@
             android:background="@drawable/textview_back"
             android:gravity="center"
             android:textAlignment="center"
+            android:textColor="#323333"
             android:textColorLink="#00000000"
             android:textSize="10sp"
-            android:textColor="#323333"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.52"
