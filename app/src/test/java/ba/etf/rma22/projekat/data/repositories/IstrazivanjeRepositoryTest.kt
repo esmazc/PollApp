@@ -1,9 +1,5 @@
-package ba.etf.rma22.projekat
+package ba.etf.rma22.projekat.data.repositories
 
-import ba.etf.rma22.projekat.data.repositories.IstrazivanjeRepository
-import org.hamcrest.CoreMatchers.`is` as Is
-import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.Matchers.*
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -11,7 +7,7 @@ import org.junit.Test
 class IstrazivanjeRepositoryTest {
 
     @Test
-    fun testGetIstrazivanjeByGodina() {
+    fun getIstrazivanjeByGodina() {
         val researches1 = IstrazivanjeRepository.getIstrazivanjeByGodina(1)
         assertEquals(researches1.size, 2)
         val researches2 = IstrazivanjeRepository.getIstrazivanjeByGodina(2)
@@ -25,7 +21,7 @@ class IstrazivanjeRepositoryTest {
     }
 
     @Test
-    fun testGetAll() {
+    fun getAll() {
         val researches = IstrazivanjeRepository.getAll()
         assertEquals(researches.size, 5)
         for(i in 1..5)
@@ -33,7 +29,7 @@ class IstrazivanjeRepositoryTest {
     }
 
     @Test
-    fun testGetUpisani() {
+    fun getUpisani() {
         val researches = IstrazivanjeRepository.getUpisani()
         assertEquals(researches.size, 2)
         assertTrue(researches.stream().allMatch { res -> res.naziv == "Istraživanje broj 1" || res.naziv == "Istraživanje broj 5"})

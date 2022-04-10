@@ -1,11 +1,7 @@
-package ba.etf.rma22.projekat
+package ba.etf.rma22.projekat.data.repositories
 
 
 import ba.etf.rma22.projekat.data.models.Anketa
-import ba.etf.rma22.projekat.data.repositories.AnketaRepository
-import org.hamcrest.CoreMatchers.`is` as Is
-import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.Matchers.*
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -13,13 +9,13 @@ import org.junit.Test
 class AnketaRepositoryTest {
 
     @Test
-    fun testGetAll() {
+    fun getAll() {
         val polls = AnketaRepository.getAll()
         assertEquals(polls.size,15)
     }
 
     @Test
-    fun testGetMyAnkete() {
+    fun getMyAnkete() {
         val polls = AnketaRepository.getMyAnkete()
         assertEquals(polls.size,5)
         assertTrue(polls.stream().allMatch { poll -> poll.nazivIstrazivanja == "Istraživanje broj 1" || poll.nazivIstrazivanja == "Istraživanje broj 5" })
@@ -31,7 +27,7 @@ class AnketaRepositoryTest {
     }
 
     @Test
-    fun testGetDone() {
+    fun getDone() {
         val polls = AnketaRepository.getDone()
         val polls1 = AnketaRepository.getMyAnkete()
         assertEquals(polls.size,2)
@@ -40,7 +36,7 @@ class AnketaRepositoryTest {
     }
 
     @Test
-    fun testGetFuture() {
+    fun getFuture() {
         val polls = AnketaRepository.getFuture()
         val polls1 = AnketaRepository.getMyAnkete()
         assertEquals(polls.size,2)
@@ -49,7 +45,7 @@ class AnketaRepositoryTest {
     }
 
     @Test
-    fun testGetNotTaken() {
+    fun getNotTaken() {
         val polls = AnketaRepository.getNotTaken()
         val polls1 = AnketaRepository.getMyAnkete()
         assertEquals(polls.size,1)

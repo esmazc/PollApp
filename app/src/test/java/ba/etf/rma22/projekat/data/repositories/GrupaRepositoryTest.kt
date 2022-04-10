@@ -1,13 +1,12 @@
-package ba.etf.rma22.projekat
+package ba.etf.rma22.projekat.data.repositories
 
-import ba.etf.rma22.projekat.data.repositories.GrupaRepository
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class GrupaRepositoryTest {
 
     @Test
-    fun testGetGroupsByIstrazivanje() {
+    fun getGroupsByIstrazivanje() {
         val groups1 = GrupaRepository.getGroupsByIstrazivanje("Istraživanje broj 1")
         assertEquals(groups1.size, 2)
         val groups2 = GrupaRepository.getGroupsByIstrazivanje("Istraživanje broj 2")
