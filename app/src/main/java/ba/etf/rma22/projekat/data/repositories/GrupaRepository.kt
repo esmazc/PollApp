@@ -9,7 +9,7 @@ object GrupaRepository {
         val groupsByIstrazivanje: ArrayList<Grupa> = arrayListOf()
         val groups: List<Grupa> = groups()
         for(grupa: Grupa in groups) {
-            if(grupa.nazivIstrazivanja.equals(nazivIstrazivanja))
+            if(grupa.nazivIstrazivanja == nazivIstrazivanja)
                 groupsByIstrazivanje.add(grupa)
         }
         return groupsByIstrazivanje
