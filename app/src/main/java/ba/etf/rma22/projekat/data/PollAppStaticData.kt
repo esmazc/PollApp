@@ -3,7 +3,12 @@ package ba.etf.rma22.projekat.data
 import ba.etf.rma22.projekat.data.models.Anketa
 import ba.etf.rma22.projekat.data.models.Grupa
 import ba.etf.rma22.projekat.data.models.Istrazivanje
+import ba.etf.rma22.projekat.data.models.Korisnik
 import java.util.*
+
+fun user(): Korisnik {
+    return Korisnik(arrayListOf(Pair("Istraživanje broj 1", "Grupa2"), Pair("Istraživanje broj 5", "Grupa1")))
+}
 
 fun researches(): List<Istrazivanje> {
     return listOf(

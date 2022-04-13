@@ -35,7 +35,7 @@ class UpisIstrazivanje : AppCompatActivity() {
         val godineList = listOf("1", "2", "3", "4", "5")
         spinnerGodinaAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, godineList)
         spinnerGodina.adapter = spinnerGodinaAdapter
-        val s: String = KorisnikRepository.korisnik.parovi.last().first
+        val s: String = KorisnikRepository.getUser().parovi.last().first
         var godina: Int = upisIstrazivanjeViewModel.getAll().find { istrazivanje -> istrazivanje.naziv == s }!!.godina
         spinnerGodina.setSelection(godina-1)
         var istrazivanje = ""
@@ -92,7 +92,7 @@ class UpisIstrazivanje : AppCompatActivity() {
         }
 
         button.setOnClickListener {
-            KorisnikRepository.korisnik.parovi.add(Pair(istrazivanje, grupa))
+            KorisnikRepository.getUser().parovi.add(Pair(istrazivanje, grupa))
             val intent = Intent(applicationContext, MainActivity::class.java)
             finish()
             startActivity(intent)

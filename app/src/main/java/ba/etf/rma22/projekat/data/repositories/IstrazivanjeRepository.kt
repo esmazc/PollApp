@@ -2,9 +2,10 @@ package ba.etf.rma22.projekat.data.repositories
 
 import ba.etf.rma22.projekat.data.models.Istrazivanje
 import ba.etf.rma22.projekat.data.researches
+import ba.etf.rma22.projekat.data.user
 
 object IstrazivanjeRepository {
-    private val korisnik = KorisnikRepository.korisnik
+    private val korisnik = user()
 
     fun getIstrazivanjeByGodina(godina:Int) : List<Istrazivanje> {
         val istrazivanjaByGodina: ArrayList<Istrazivanje> = arrayListOf()
