@@ -25,11 +25,13 @@ data class Anketa(
     init {
         if(progres < 0 || progres > 1) throw IllegalArgumentException()
         if(datumPocetak > datumKraj || (datumRada != null && (datumRada < datumPocetak || datumRada > datumKraj))) throw IllegalArgumentException()
-        val now: Date = Date()
-        if(datumRada != null) stanje = Stanje.DONE
-        else if(datumPocetak.after(now)) stanje = Stanje.NOTSTARTEDYET
-        else if(datumKraj.before(now)) stanje = Stanje.ENDED
-        else if(datumKraj.after(now)) stanje = Stanje.ACTIVE
+        val now = Date()
+        when {
+            datumRada != null -> stanje = Stanje.DONE
+            datumPocetak.after(now) -> stanje = Stanje.NOTSTARTEDYET
+            datumKraj.before(now) -> stanje = Stanje.ENDED
+            datumKraj.after(now) -> stanje = Stanje.ACTIVE
+        }
     }
 
     override fun equals(other: Any?): Boolean {
