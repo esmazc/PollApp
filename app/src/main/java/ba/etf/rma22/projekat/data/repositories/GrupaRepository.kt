@@ -1,7 +1,7 @@
 package ba.etf.rma22.projekat.data.repositories
 
-import ba.etf.rma22.projekat.data.groups
 import ba.etf.rma22.projekat.data.models.Grupa
+import ba.etf.rma22.projekat.data.staticdata.groups
 
 object GrupaRepository {
 
@@ -14,5 +14,4 @@ object GrupaRepository {
         }
         return groupsByIstrazivanje
     }
-
 }

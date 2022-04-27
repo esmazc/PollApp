@@ -1,13 +1,12 @@
 package ba.etf.rma22.projekat.data.repositories
 
 import ba.etf.rma22.projekat.data.models.Istrazivanje
-import ba.etf.rma22.projekat.data.researches
-import ba.etf.rma22.projekat.data.user
+import ba.etf.rma22.projekat.data.staticdata.researches
 
 object IstrazivanjeRepository {
-    private val korisnik = user()
+    private val korisnik = KorisnikRepository.getUser()
 
-    fun getIstrazivanjeByGodina(godina:Int) : List<Istrazivanje> {
+    fun getIstrazivanjeByGodina(godina: Int) : List<Istrazivanje> {
         val istrazivanjaByGodina: ArrayList<Istrazivanje> = arrayListOf()
         val researches: List<Istrazivanje> = researches()
         for(istrazivanje: Istrazivanje in researches) {

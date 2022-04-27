@@ -8,10 +8,10 @@ data class Anketa(
     val nazivIstrazivanja: String,
     val datumPocetak: Date,
     val datumKraj: Date,
-    val datumRada: Date?,
+    var datumRada: Date?,
     val trajanje: Int,
     val nazivGrupe: String,
-    val progres: Float
+    var progres: Float
 ) {
     var stanje: Stanje = Stanje.ACTIVE
 
@@ -24,8 +24,16 @@ data class Anketa(
 
     init {
         if(progres < 0 || progres > 1) throw IllegalArgumentException()
-        if(datumPocetak > datumKraj || (datumRada != null && (datumRada < datumPocetak || datumRada > datumKraj))) throw IllegalArgumentException()
+        if(datumPocetak > datumKraj || (datumRada != null && (datumRada!! < datumPocetak || datumRada!! > datumKraj))) throw IllegalArgumentException()
+//        val localDateTime = LocalDateTime.now()
+//        val calendar: Calendar = Calendar.getInstance()
+//        calendar.set(localDateTime.year, localDateTime.monthValue, localDateTime.dayOfMonth)
+//        val now: Date = calendar.time
         val now = Date()
+//        if(datumRada != null) stanje = Stanje.DONE
+//        else if(datumPocetak.after(now)) stanje = Stanje.NOTSTARTEDYET
+//        else if(datumKraj.before(now)) stanje = Stanje.ENDED
+//        else if(datumKraj.after(now)) stanje = Stanje.ACTIVE
         when {
             datumRada != null -> stanje = Stanje.DONE
             datumPocetak.after(now) -> stanje = Stanje.NOTSTARTEDYET

@@ -16,7 +16,10 @@ import ba.etf.rma22.projekat.data.models.Anketa
 import java.text.SimpleDateFormat
 import kotlin.math.floor
 
-class PollListAdapter(private var polls: List<Anketa>) : RecyclerView.Adapter<PollListAdapter.PollViewHolder>() {
+class PollListAdapter(
+    private var polls: List<Anketa>,
+    private val onItemClick: (poll: Anketa) -> Unit
+) : RecyclerView.Adapter<PollListAdapter.PollViewHolder>() {
 
     inner class PollViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val pollName: TextView = itemView.findViewById(R.id.name)
@@ -55,6 +58,8 @@ class PollListAdapter(private var polls: List<Anketa>) : RecyclerView.Adapter<Po
         if((progres / 2) % 2 != 0F)
             progres += 10
         viewHolder.pollProgressBar.progress = progres.toInt()
+
+        viewHolder.itemView.setOnClickListener{ onItemClick(polls[position]) }
     }
 
     override fun getItemCount() = polls.size

@@ -1,19 +1,21 @@
 package ba.etf.rma22.projekat.data.repositories
 
 import ba.etf.rma22.projekat.data.models.Anketa
-import ba.etf.rma22.projekat.data.polls
-import ba.etf.rma22.projekat.data.user
+import ba.etf.rma22.projekat.data.staticdata.polls
+import kotlin.collections.ArrayList
 
 object AnketaRepository {
-    private val korisnik = user()
+    private val korisnik = KorisnikRepository.getUser()
 
     fun getAll(): List<Anketa> {
-        return polls()
+        //return polls()
+        return polls
     }
 
     fun getMyAnkete(): List<Anketa> {
         val myAnkete: ArrayList<Anketa> = arrayListOf()
-        val polls: List<Anketa> = polls()
+        //val polls: List<Anketa> = polls()
+        val polls: List<Anketa> = polls
         for(anketa: Anketa in polls) {
             if(korisnik.parovi.contains(Pair(anketa.nazivIstrazivanja, anketa.nazivGrupe)))
                 myAnkete.add(anketa)
@@ -50,5 +52,4 @@ object AnketaRepository {
         }
         return myNotTaken
     }
-
 }

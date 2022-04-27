@@ -1,0 +1,53 @@
+package ba.etf.rma22.projekat.data.staticdata
+
+import ba.etf.rma22.projekat.data.models.PitanjeAnketa
+
+fun questionsPolls(): List<PitanjeAnketa> {
+    return listOf(
+        PitanjeAnketa("Pitanje1", "Anketa 1", "Istraživanje broj 1"),
+        PitanjeAnketa("Pitanje2", "Anketa 1", "Istraživanje broj 1"),
+        PitanjeAnketa("Pitanje3", "Anketa 1", "Istraživanje broj 1"),
+        PitanjeAnketa("Pitanje4", "Anketa 2", "Istraživanje broj 1"),
+        PitanjeAnketa("Pitanje5", "Anketa 2", "Istraživanje broj 1"),
+        PitanjeAnketa("Pitanje6", "Anketa 2", "Istraživanje broj 1"),
+        PitanjeAnketa("Pitanje7", "Anketa 3", "Istraživanje broj 1"),
+        PitanjeAnketa("Pitanje8", "Anketa 3", "Istraživanje broj 1"),
+        PitanjeAnketa("Pitanje9", "Anketa 3", "Istraživanje broj 1"),
+        PitanjeAnketa("Pitanje10", "Anketa 1", "Istraživanje broj 2"),
+        PitanjeAnketa("Pitanje11", "Anketa 1", "Istraživanje broj 2"),
+        PitanjeAnketa("Pitanje12", "Anketa 1", "Istraživanje broj 2"),
+        PitanjeAnketa("Pitanje13", "Anketa 2", "Istraživanje broj 2"),
+        PitanjeAnketa("Pitanje14", "Anketa 2", "Istraživanje broj 2"),
+        PitanjeAnketa("Pitanje15", "Anketa 2", "Istraživanje broj 2"),
+        PitanjeAnketa("Pitanje16", "Anketa 1", "Istraživanje broj 3"),
+        PitanjeAnketa("Pitanje17", "Anketa 1", "Istraživanje broj 3"),
+        PitanjeAnketa("Pitanje18", "Anketa 1", "Istraživanje broj 3"),
+        PitanjeAnketa("Pitanje19", "Anketa 2", "Istraživanje broj 3"),
+        PitanjeAnketa("Pitanje20", "Anketa 2", "Istraživanje broj 3"),
+        PitanjeAnketa("Pitanje21", "Anketa 2", "Istraživanje broj 3"),
+        PitanjeAnketa("Pitanje22", "Anketa 3", "Istraživanje broj 3"),
+        PitanjeAnketa("Pitanje23", "Anketa 3", "Istraživanje broj 3"),
+        PitanjeAnketa("Pitanje24", "Anketa 3", "Istraživanje broj 3"),
+        PitanjeAnketa("Pitanje25", "Anketa 1", "Istraživanje broj 4"),
+        PitanjeAnketa("Pitanje26", "Anketa 1", "Istraživanje broj 4"),
+        PitanjeAnketa("Pitanje27", "Anketa 1", "Istraživanje broj 4"),
+        PitanjeAnketa("Pitanje28", "Anketa 2", "Istraživanje broj 4"),
+        PitanjeAnketa("Pitanje29", "Anketa 2", "Istraživanje broj 4"),
+        PitanjeAnketa("Pitanje30", "Anketa 2", "Istraživanje broj 4"),
+        PitanjeAnketa("Pitanje31", "Anketa 3", "Istraživanje broj 4"),
+        PitanjeAnketa("Pitanje32", "Anketa 3", "Istraživanje broj 4"),
+        PitanjeAnketa("Pitanje33", "Anketa 3", "Istraživanje broj 4"),
+        PitanjeAnketa("Pitanje34", "Anketa 4", "Istraživanje broj 4"),
+        PitanjeAnketa("Pitanje35", "Anketa 4", "Istraživanje broj 4"),
+        PitanjeAnketa("Pitanje36", "Anketa 4", "Istraživanje broj 4"),
+        PitanjeAnketa("Pitanje37", "Anketa 1", "Istraživanje broj 5"),
+        PitanjeAnketa("Pitanje38", "Anketa 1", "Istraživanje broj 5"),
+        PitanjeAnketa("Pitanje39", "Anketa 1", "Istraživanje broj 5"),
+        PitanjeAnketa("Pitanje40", "Anketa 2", "Istraživanje broj 5"),
+        PitanjeAnketa("Pitanje41", "Anketa 2", "Istraživanje broj 5"),
+        PitanjeAnketa("Pitanje42", "Anketa 2", "Istraživanje broj 5"),
+        PitanjeAnketa("Pitanje43", "Anketa 3", "Istraživanje broj 5"),
+        PitanjeAnketa("Pitanje44", "Anketa 3", "Istraživanje broj 5"),
+        PitanjeAnketa("Pitanje45", "Anketa 3", "Istraživanje broj 5")
+    )
+}

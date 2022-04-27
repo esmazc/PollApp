@@ -10,9 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PollApp">
         <activity
-            android:name="ba.etf.rma22.projekat.UpisIstrazivanje"
-            android:exported="false" />
-        <activity
             android:name="ba.etf.rma22.projekat.MainActivity"
             android:exported="true">
             <intent-filter>
