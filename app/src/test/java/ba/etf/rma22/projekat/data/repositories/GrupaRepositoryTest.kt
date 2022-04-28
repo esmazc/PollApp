@@ -14,8 +14,8 @@ class GrupaRepositoryTest {
         val groups3 = GrupaRepository.getGroupsByIstrazivanje("Istraživanje broj 3")
         assertEquals(groups3.size, 2)
         val groups4 = GrupaRepository.getGroupsByIstrazivanje("Istraživanje broj 4")
-        assertEquals(groups4.size, 3)
+        assertEquals(groups4.size, 2)
         val groups5 = GrupaRepository.getGroupsByIstrazivanje("Istraživanje broj 5")
-        assertEquals(groups5.size, 2)
+        assertEquals(groups5.size, 3)
     }
 }

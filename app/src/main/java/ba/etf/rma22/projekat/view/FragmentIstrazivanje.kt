@@ -60,8 +60,6 @@ class FragmentIstrazivanje() : Fragment() {
                 for(ist: Istrazivanje in istrazivanjaList)
                     if(!x.contains(ist.naziv))
                         istrazivanjaList1.add(ist.naziv)
-                //istrazivanjaList.filter { istrazivanje -> !upisIstrazivanjeViewModel.getUpisani().stream().map { istr -> istr.naziv }.toList().contains(istrazivanje.naziv) }
-                //val istrazivanjaList1: List<String> = istrazivanjaList.stream().map { istrazivanje -> istrazivanje.naziv }.toList()
                 spinnerIstrazivanjeAdapter = ArrayAdapter(context!!, android.R.layout.simple_spinner_dropdown_item, istrazivanjaList1)
                 spinnerIstrazivanje.adapter = spinnerIstrazivanjeAdapter
                 //***promijeniti if i izbrisati "" iz listOf
@@ -103,19 +101,6 @@ class FragmentIstrazivanje() : Fragment() {
 
         button.setOnClickListener {
             korisnik.parovi.add(Pair(istrazivanje, grupa))
-            /*val intent = Intent(activity, MainActivity::class.java)
-            //finish()
-            startActivity(intent)*/
-            /*val grupe = GrupaRepository.getGroupsByIstrazivanje(istrazivanje)
-            for (g: Grupa in grupe) {
-                if (g.naziv == grupa) {
-                    //MainActivity.refreshSecondFragment(g)
-                    MainActivity.viewPagerAdapter.refresh(1, FragmentPoruka(g))
-                    break
-                }
-            }*/
-            //val group = Grupa(grupa, istrazivanje)
-            //MainActivity.viewPagerAdapter.refresh(1, FragmentPoruka(group))
             MainActivity.viewPagerAdapter.refresh(1, FragmentPoruka(true, Grupa(grupa, istrazivanje), null/*, null*/))
         }
         return view

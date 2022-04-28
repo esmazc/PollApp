@@ -32,7 +32,7 @@ class IstrazivanjeRepositoryTest {
     fun getUpisani() {
         val researches = IstrazivanjeRepository.getUpisani()
         assertEquals(researches.size, 2)
-        assertTrue(researches.stream().allMatch { res -> res.naziv == "Istraživanje broj 1" || res.naziv == "Istraživanje broj 5"})
+        assertTrue(researches.stream().allMatch { res -> res.naziv == "Istraživanje broj 1" || res.naziv == "Istraživanje broj 4"})
     }
 
 }

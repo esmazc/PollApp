@@ -9,12 +9,6 @@ class ViewPagerAdapter(fragmentActivity: FragmentActivity, var fragments: Mutabl
     override fun getItemCount(): Int = fragments.size
 
     override fun createFragment(position: Int): Fragment {
-        /*return when(position) {
-            0 -> FragmentAnkete.newInstance()
-            1 -> FragmentIstrazivanje.newInstance()
-            2 -> FragmentPoruka()
-            else -> FragmentAnkete.newInstance()
-        }*/
         return fragments[position]
     }
 

@@ -37,9 +37,9 @@ class FragmentAnkete : Fragment() {
         pollsAdapter = PollListAdapter(arrayListOf()) { poll -> showPollsQuestions(poll) }
         polls.adapter = pollsAdapter
         pollsAdapter.updatePolls(pollListViewModel.getMyAnkete().sortedBy { poll -> poll.datumPocetak })
-        //println(pollListViewModel.getMyAnkete().filter { ank -> ank.stanje == Anketa.Stanje.DONE }.size)
 
         spinner = view.findViewById(R.id.filterAnketa)
+        spinner.setSelection(0)
         //spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.filter_anketa, android.R.layout.simple_spinner_dropdown_item)
         //spinner.adapter = spinnerAdapter
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -62,7 +62,6 @@ class FragmentAnkete : Fragment() {
     }
 
     private fun showPollsQuestions(poll: Anketa) {
-        //if poll za razlicita stanja ankete
         if(poll.stanje != Anketa.Stanje.NOTSTARTEDYET && pollListViewModel.getMyAnkete().contains(poll)) {
             val questions = pitanjeAnketaViewModel.getPitanja(poll.naziv, poll.nazivIstrazivanja)
             println("xxxx")
@@ -83,6 +82,7 @@ class FragmentAnkete : Fragment() {
         super.onResume()
         Handler(Looper.getMainLooper()).postDelayed({
             if(MainActivity.viewPagerAdapter.fragments.size > 1 && MainActivity.viewPagerAdapter.getItem(1) is FragmentPoruka) {
+                spinner.setSelection(0)
                 pollsAdapter.updatePolls(pollListViewModel.getMyAnkete().sortedBy { poll -> poll.datumPocetak })
                 MainActivity.viewPagerAdapter.refresh(1, FragmentIstrazivanje())
             }

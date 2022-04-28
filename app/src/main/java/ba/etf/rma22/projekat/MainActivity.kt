@@ -33,12 +33,4 @@ class MainActivity : AppCompatActivity() {
             }
         })*/
     }
-
-    /*private fun openFragment(fragment: Fragment) {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.frame, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
-    }*/
-
 }

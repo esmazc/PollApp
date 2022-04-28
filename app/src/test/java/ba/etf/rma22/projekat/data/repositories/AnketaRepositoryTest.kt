@@ -18,7 +18,7 @@ class AnketaRepositoryTest {
     fun getMyAnkete() {
         val polls = AnketaRepository.getMyAnkete()
         assertEquals(polls.size,5)
-        assertTrue(polls.stream().allMatch { poll -> poll.nazivIstrazivanja == "Istraživanje broj 1" || poll.nazivIstrazivanja == "Istraživanje broj 5" })
+        assertTrue(polls.stream().allMatch { poll -> poll.nazivIstrazivanja == "Istraživanje broj 1" || poll.nazivIstrazivanja == "Istraživanje broj 4" })
         assertEquals(polls[0].nazivGrupe, "Grupa2")
         assertEquals(polls[1].nazivGrupe, "Grupa2")
         assertEquals(polls[2].nazivGrupe, "Grupa1")
@@ -30,7 +30,7 @@ class AnketaRepositoryTest {
     fun getDone() {
         val polls = AnketaRepository.getDone()
         val polls1 = AnketaRepository.getMyAnkete()
-        assertEquals(polls.size,2)
+        assertEquals(polls.size,1)
         assertTrue(polls.stream().allMatch { poll -> poll.stanje == Anketa.Stanje.DONE})
         assertTrue(polls1.containsAll(polls))
     }
@@ -39,7 +39,7 @@ class AnketaRepositoryTest {
     fun getFuture() {
         val polls = AnketaRepository.getFuture()
         val polls1 = AnketaRepository.getMyAnkete()
-        assertEquals(polls.size,2)
+        assertEquals(polls.size,3)
         assertTrue(polls.stream().allMatch { poll -> poll.stanje == Anketa.Stanje.NOTSTARTEDYET || poll.stanje == Anketa.Stanje.ACTIVE})
         assertTrue(polls1.containsAll(polls))
     }

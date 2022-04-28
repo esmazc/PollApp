@@ -8,7 +8,6 @@ import ba.etf.rma22.projekat.data.staticdata.questionsPolls
 object PitanjeAnketaRepository {
 
     fun getPitanja(nazivAnkete: String, nazivIstrazivanja: String): List<Pitanje> {
-        //val anketa = polls().filter { poll -> poll.nazivIstrazivanja == nazivIstrazivanja }.find { p -> p.naziv == nazivAnkete }
         val pitanja: ArrayList<Pitanje> = arrayListOf()
         val listPitanjeAnketa = questionsPolls().filter { poll -> poll.anketa == nazivAnkete && poll.istrazivanje == nazivIstrazivanja }
         for(pitanjeAnketa: PitanjeAnketa in listPitanjeAnketa)

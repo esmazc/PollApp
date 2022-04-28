@@ -8,13 +8,11 @@ object AnketaRepository {
     private val korisnik = KorisnikRepository.getUser()
 
     fun getAll(): List<Anketa> {
-        //return polls()
         return polls
     }
 
     fun getMyAnkete(): List<Anketa> {
         val myAnkete: ArrayList<Anketa> = arrayListOf()
-        //val polls: List<Anketa> = polls()
         val polls: List<Anketa> = polls
         for(anketa: Anketa in polls) {
             if(korisnik.parovi.contains(Pair(anketa.nazivIstrazivanja, anketa.nazivGrupe)))
