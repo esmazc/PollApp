@@ -23,10 +23,6 @@ class FragmentPredaj(private val poll: Anketa) : Fragment() {
     private var korisnik = KorisnikViewModel().getUser()
     private var pitanjeAnketaViewModel = PitanjeAnketaViewModel()
 
-    /*companion object {
-        fun newInstance(): FragmentPredaj = FragmentPredaj()
-    }*/
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.predaj_fragment, container, false)
 

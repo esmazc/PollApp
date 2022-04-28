@@ -26,10 +26,6 @@ class FragmentPitanje(private val question: Pitanje, private val poll: Anketa) :
     private var korisnik = KorisnikViewModel().getUser()
     private var pitanjeAnketaViewModel = PitanjeAnketaViewModel()
 
-    /*companion object {
-        fun newInstance(): FragmentPitanje = FragmentPitanje()
-    }*/
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.pitanje_fragment, container, false)
 
@@ -47,7 +43,6 @@ class FragmentPitanje(private val question: Pitanje, private val poll: Anketa) :
             if(poll.stanje == Anketa.Stanje.ACTIVE) {
                 flag = position
                 answersAdapter.notifyDataSetChanged()
-                //question.izabraniOdgovor = position
                 if(!korisnik.odgovori.containsKey(Pair(poll.naziv, poll.nazivIstrazivanja)))
                     korisnik.odgovori.put(Pair(poll.naziv, poll.nazivIstrazivanja), arrayListOf(Pair(question.naziv, question.opcije[position])))
                 else {
@@ -55,19 +50,10 @@ class FragmentPitanje(private val question: Pitanje, private val poll: Anketa) :
                         korisnik.odgovori.getValue(Pair(poll.naziv, poll.nazivIstrazivanja)).remove(korisnik.odgovori.getValue(Pair(poll.naziv, poll.nazivIstrazivanja)).find { pair -> pair.first == question.naziv })
                     korisnik.odgovori.getValue(Pair(poll.naziv, poll.nazivIstrazivanja)).add(Pair(question.naziv, question.opcije[position]))
                 }
-                //question.izabraniOdgovor = question.opcije[position]
             }
         }
-        /*if(question.izabraniOdgovor != null) {
-            //answers.setSelection(question.izabraniOdgovor!!)
-            //answers.setItemChecked(question.izabraniOdgovor!!, true)
-            /*answers.post(Runnable {
-                answers.setSelection(question.izabraniOdgovor!!)
-                answersAdapter.notifyDataSetChanged()
-            })*/
-        }*/
 
-        button.setOnClickListener {          //nesta ne valja kada sam na drugom pitanju
+        button.setOnClickListener {
             MainActivity.viewPagerAdapter.removeAll()
             MainActivity.viewPagerAdapter.add(FragmentAnkete())
             MainActivity.viewPagerAdapter.add(FragmentIstrazivanje())
@@ -113,16 +99,14 @@ class FragmentPitanje(private val question: Pitanje, private val poll: Anketa) :
             val rowView: View = View.inflate(context, R.layout.custom_cell_listview, null)
 
             val answerText: TextView = rowView.findViewById(R.id.answerTxt)
-            if(flag == p0 && poll.stanje == Anketa.Stanje.ACTIVE)  //mozda i NOTSTARTEDYET
+            if(flag == p0 && poll.stanje == Anketa.Stanje.ACTIVE)
                 answerText.setTextColor(ContextCompat.getColor(context, R.color.answer_click))
-            //if(question.izabraniOdgovor != null && question.izabraniOdgovor == question.opcije[p0])
-              //  answerText.setTextColor(ContextCompat.getColor(context, R.color.answer_click))
             if(korisnik.odgovori.containsKey(Pair(poll.naziv, poll.nazivIstrazivanja))
                 && korisnik.odgovori.getValue(Pair(poll.naziv, poll.nazivIstrazivanja)).contains(Pair(question.naziv, question.opcije[p0])))
                 answerText.setTextColor(ContextCompat.getColor(context, R.color.answer_click))
             answerText.text = question.opcije[p0]
 
-            return rowView;
+            return rowView
         }
     }
 }

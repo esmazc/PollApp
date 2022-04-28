@@ -31,8 +31,4 @@ class FragmentPoruka(
         return view
     }
 
-    /*companion object {
-        fun newInstance(): FragmentPoruka = FragmentPoruka(grupa)
-    }*/
-
 }
