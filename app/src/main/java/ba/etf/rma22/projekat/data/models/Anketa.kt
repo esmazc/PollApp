@@ -1,19 +1,21 @@
 package ba.etf.rma22.projekat.data.models
 
+import ba.etf.rma22.projekat.data.repositories.TakeAnketaRepository
+import com.google.gson.annotations.SerializedName
 import java.lang.IllegalArgumentException
 import java.util.*
 
 data class Anketa(
-    val naziv: String,
-    val nazivIstrazivanja: String,
-    val datumPocetak: Date,
-    val datumKraj: Date,
-    var datumRada: Date?,
-    val trajanje: Int,
-    val nazivGrupe: String,
-    var progres: Float
-) {
+    @SerializedName("id") val id: Int,
+    @SerializedName("naziv") val naziv: String,
+    @SerializedName("datumPocetak") val datumPocetak: Date,
+    @SerializedName("datumKraj") val datumKraj: Date?,
+    @SerializedName("trajanje") val trajanje: Int,
+    var nazivIstrazivanja: String = "",
+    var datumRada: Date? = null,
+    var progres: Float = 0f,
     var stanje: Stanje = Stanje.ACTIVE
+) {
 
     enum class Stanje(val name1: String) {
         DONE("plava"),
@@ -22,15 +24,19 @@ data class Anketa(
         NOTSTARTEDYET("zuta")
     }
 
-    init {
-        if(progres < 0 || progres > 1) throw IllegalArgumentException()
-        if(datumPocetak > datumKraj || (datumRada != null && (datumRada!! < datumPocetak || datumRada!! > datumKraj))) throw IllegalArgumentException()
+    //init {
+    fun postaviStanje() {
+        //if(progres < 0 || progres > 1) throw IllegalArgumentException()
+        //if(datumPocetak > datumKraj || (datumRada != null && (datumRada!! < datumPocetak || datumRada!! > datumKraj))) throw IllegalArgumentException()
         val now = Date()
-        when {
-            datumRada != null -> stanje = Stanje.DONE
+        //val anketaTaken = TakeAnketaRepository.getAnketaTaken(id)
+        when {               //NISAM SIGURNA DA LI JE UREDU DONE
+            //datumRada != null -> stanje = Stanje.DONE
+            progres == 1f -> stanje = Stanje.DONE
             datumPocetak.after(now) -> stanje = Stanje.NOTSTARTEDYET
-            datumKraj.before(now) -> stanje = Stanje.ENDED
-            datumKraj.after(now) -> stanje = Stanje.ACTIVE
+            datumKraj == null || datumKraj.after(now) -> stanje = Stanje.ACTIVE
+            datumKraj.before(now) && progres == -1f -> stanje = Stanje.ENDED
+            datumKraj.before(now) -> stanje = Stanje.DONE  //ended
         }
     }
 
@@ -40,18 +46,12 @@ data class Anketa(
 
         other as Anketa
 
-        if (naziv != other.naziv) return false
-        if (nazivIstrazivanja != other.nazivIstrazivanja) return false
-        if (nazivGrupe != other.nazivGrupe) return false
+        if (id != other.id) return false
 
         return true
     }
 
     override fun hashCode(): Int {
-        var result = naziv.hashCode()
-        result = 31 * result + nazivIstrazivanja.hashCode()
-        result = 31 * result + nazivGrupe.hashCode()
-        return result
+        return id
     }
-
 }

@@ -12,8 +12,10 @@ import androidx.activity.OnBackPressedCallback
 import ba.etf.rma22.projekat.MainActivity
 import ba.etf.rma22.projekat.R
 import ba.etf.rma22.projekat.data.models.Anketa
+import ba.etf.rma22.projekat.data.models.AnketaTaken
 import ba.etf.rma22.projekat.viewmodel.KorisnikViewModel
 import ba.etf.rma22.projekat.viewmodel.PitanjeAnketaViewModel
+import ba.etf.rma22.projekat.viewmodel.PollListViewModel
 import java.util.*
 import kotlin.math.floor
 
@@ -32,11 +34,12 @@ class FragmentPredaj(private val poll: Anketa) : Fragment() {
         if(poll.stanje != Anketa.Stanje.ACTIVE) button.isEnabled = false
 
         button.setOnClickListener {
-            poll.stanje = Anketa.Stanje.DONE
-            poll.datumRada = Date()
+//            poll.stanje = Anketa.Stanje.DONE
+//            poll.datumRada = Date()
             MainActivity.viewPagerAdapter.removeAll()
             MainActivity.viewPagerAdapter.add(FragmentAnkete())
-            MainActivity.viewPagerAdapter.add(FragmentPoruka(false, null, poll/*, Istrazivanje(poll.nazivIstrazivanja, 1)*/))
+            //MainActivity.viewPagerAdapter.add(FragmentPoruka(false, poll.nazivIstrazivanja, null, poll.naziv/*, Istrazivanje(poll.nazivIstrazivanja, 1)*/))
+            MainActivity.viewPagerAdapter.add(FragmentPoruka("Završili ste anketu ${poll.naziv} u okviru istraživanja ${poll.nazivIstrazivanja}"))
             MainActivity.viewPager.currentItem = 1
         }
 
@@ -52,17 +55,23 @@ class FragmentPredaj(private val poll: Anketa) : Fragment() {
         return view
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onResume() {
         super.onResume()
-        var pr = 0F
-        if(korisnik.odgovori.containsKey(Pair(poll.naziv, poll.nazivIstrazivanja)))
-            pr = korisnik.odgovori.getValue(Pair(poll.naziv, poll.nazivIstrazivanja)).size.toFloat() / pitanjeAnketaViewModel.getPitanja(poll.naziv, poll.nazivIstrazivanja).size
-        var progr: Float = floor(pr * 10) * 10
-        if((progr / 2) % 2 != 0F)
-            progr += 10
-        progres.text = progr.toInt().toString() + "%"
-        poll.progres = pr
+//        var pr = 0F
+        pitanjeAnketaViewModel.getAnketaTaken(poll.id, onSuccess = ::onSuccess, null)
+//        if(korisnik.odgovori.containsKey(Pair(poll.naziv, poll.nazivIstrazivanja)))
+//            pr = korisnik.odgovori.getValue(Pair(poll.naziv, poll.nazivIstrazivanja)).size.toFloat() / pitanjeAnketaViewModel.getPitanja(poll.naziv, poll.nazivIstrazivanja).size
+//        var progr: Float = floor(pr * 10) * 10
+//        if((progr / 2) % 2 != 0F)
+//            progr += 10
+//        progres.text = progr.toInt().toString() + "%"
+//        poll.progres = pr
+        //anketaTaken!!.progres = pr
     }
 
+    @SuppressLint("SetTextI18n")
+    fun onSuccess(anketaTaken: AnketaTaken) {
+        progres.text = anketaTaken.progres.toInt().toString() + "%"
+        //poll.progres = anketaTaken.progres / 100f
+    }
 }

@@ -24,7 +24,7 @@ class PollListAdapter(
     inner class PollViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val pollName: TextView = itemView.findViewById(R.id.name)
         val pollState: ImageView = itemView.findViewById(R.id.state)
-        val pollNumber: TextView = itemView.findViewById(R.id.number)
+        val pollResearche: TextView = itemView.findViewById(R.id.researche)
         val pollProgressBar: ProgressBar = itemView.findViewById(R.id.progresZavrsetka)
         val pollDate: TextView = itemView.findViewById(R.id.date)
     }
@@ -37,7 +37,7 @@ class PollListAdapter(
     @SuppressLint("SimpleDateFormat")
     override fun onBindViewHolder(viewHolder: PollViewHolder, position: Int) {
         viewHolder.pollName.text = polls[position].naziv
-        viewHolder.pollNumber.text = polls[position].nazivIstrazivanja
+        viewHolder.pollResearche.text = polls[position].nazivIstrazivanja
 
         val state: String = polls[position].stanje.name1
         val context: Context = viewHolder.pollState.context
@@ -47,17 +47,28 @@ class PollListAdapter(
         var s = SpannableStringBuilder()
         val formatter = SimpleDateFormat("dd.MM.yyyy.")
         when(state) {
-            "plava" -> s = SpannableStringBuilder().append("Anketa urađena: ").bold { append(formatter.format(polls[position].datumRada)) }
-            "zelena" -> s = SpannableStringBuilder().append("Vrijeme zatvaranja: ").bold { append(formatter.format(polls[position].datumKraj)) }
-            "crvena" -> s = SpannableStringBuilder().append("Anketa zatvorena: ").bold { append(formatter.format(polls[position].datumKraj)) }
-            "zuta" -> s = SpannableStringBuilder().append("Vrijeme aktiviranja: ").bold { append(formatter.format(polls[position].datumPocetak)) }
+            "plava" -> {
+                if(polls[position].datumRada != null) s = SpannableStringBuilder().append("Anketa urađena: ").bold { append(formatter.format(polls[position].datumRada)) }
+            }
+            "zelena" -> {
+                if(polls[position].datumKraj != null) s = SpannableStringBuilder().append("Vrijeme zatvaranja: ").bold { append(formatter.format(polls[position].datumKraj)) }
+                else s = SpannableStringBuilder().append("Vrijeme zatvaranja: nepoznato")
+            }
+            "crvena" -> {
+                if(polls[position].datumKraj != null) s = SpannableStringBuilder().append("Anketa zatvorena: ").bold { append(formatter.format(polls[position].datumKraj)) }
+            }
+            "zuta" -> {
+                if(polls[position].datumPocetak != null) s = SpannableStringBuilder().append("Vrijeme aktiviranja: ").bold { append(formatter.format(polls[position].datumPocetak)) }
+                else s = SpannableStringBuilder().append("Vrijeme aktiviranja: nepoznato")
+            }
         }
         viewHolder.pollDate.text = s
 
-        var progres: Float = floor(polls[position].progres * 10) * 10
+        /*var progres: Float = floor(polls[position].progres * 10) * 10
         if((progres / 2) % 2 != 0F)
             progres += 10
-        viewHolder.pollProgressBar.progress = progres.toInt()
+        viewHolder.pollProgressBar.progress = progres.toInt()*/
+        viewHolder.pollProgressBar.progress = (polls[position].progres * 100).toInt()
 
         viewHolder.itemView.setOnClickListener{ onItemClick(polls[position]) }
     }
