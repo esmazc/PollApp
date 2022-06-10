@@ -13,6 +13,7 @@ object TakeAnketaRepository {
             val anketaTaken = anketaTakens!!.find { anketaTaken -> anketaTaken.AnketumId == idAnkete }
             if(anketaTaken == null) {
                 val response = ApiAdapter.retrofit.startPoll(hash, idAnkete)
+                if(response.message() != "OK") return@withContext null
                 return@withContext response.body()
             }
             return@withContext anketaTaken
@@ -22,7 +23,7 @@ object TakeAnketaRepository {
     suspend fun getPoceteAnkete(): List<AnketaTaken>? {
         return withContext(Dispatchers.IO) {
             val response = ApiAdapter.retrofit.getActivePolls(hash)
-            if(response.body().isNullOrEmpty()) return@withContext null
+            if(response.body().isNullOrEmpty() || response.message() != "OK") return@withContext null
             return@withContext response.body()
         }
     }

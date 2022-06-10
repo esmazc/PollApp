@@ -40,7 +40,8 @@ object OdgovorRepository {
             var progres: Float = round(pr * 10) * 10
             if((progres / 2) % 2 != 0F)
                 progres += 10
-            ApiAdapter.retrofit.setAnswer(hash, idAnketaTaken, SetAnswerBody(odgovor, idPitanje, progres.toInt()))
+            val response = ApiAdapter.retrofit.setAnswer(hash, idAnketaTaken, SetAnswerBody(odgovor, idPitanje, progres.toInt()))
+            if(!response.isSuccessful) return@withContext -1
             return@withContext progres.toInt()
         }
     }

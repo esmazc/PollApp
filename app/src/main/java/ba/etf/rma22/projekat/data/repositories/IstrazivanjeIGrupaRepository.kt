@@ -57,6 +57,8 @@ object IstrazivanjeIGrupaRepository {
     suspend fun upisiUGrupu(idGrupa: Int): Boolean {
         return withContext(Dispatchers.IO) {
             val response = ApiAdapter.retrofit.enrollGroup(idGrupa, hash).body()
+            //if(response!!.message != "OK") return@withContext false
+            //return@withContext true
             return@withContext !response!!.message.contains("Grupa not found")
         }
     }
