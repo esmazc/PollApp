@@ -11,10 +11,6 @@ import kotlinx.coroutines.launch
 class PitanjeAnketaViewModel {
     private val scope = CoroutineScope(Job() + Dispatchers.Main)
 
-    /*fun getPitanja(nazivAnkete: String, nazivIstrazivanja: String): List<Pitanje> {
-        return PitanjeAnketaRepository.getPitanja(nazivAnkete, nazivIstrazivanja)
-    }*/
-
     fun getPitanja(idAnkete: Int, onSuccess: (questions: List<Pitanje>) -> Unit, onError: (() -> Unit)?){
         scope.launch{
             val result = PitanjeAnketaRepository.getPitanja(idAnkete)
@@ -64,35 +60,4 @@ class PitanjeAnketaViewModel {
             }
         }
     }
-
-    /*fun getPitanja(nazivAnkete: String, nazivIstrazivanja: String, onSuccess: (groups: List<Pitanje>) -> Unit, onError: () -> Unit){ //mozda ne treba
-        scope.launch{
-            val anketa = AnketaRepository.getAll()!!.find { anketa -> anketa.naziv == nazivAnkete && anketa.nazivIstrazivanja == nazivIstrazivanja }
-            val result = PitanjeAnketaRepository.getPitanja(anketa!!.id)
-            when (result) {
-                is List<Pitanje> -> onSuccess.invoke(result)
-                else -> onError.invoke()
-            }
-        }
-    }
-
-    fun zapocniAnketu(idAnkete: Int, onSuccess: (groups: AnketaTaken) -> Unit, onError: () -> Unit){ //jedna ne treba
-        scope.launch{
-            val result = TakeAnketaRepository.zapocniAnketu(idAnkete)
-            when (result) {
-                is AnketaTaken -> onSuccess.invoke(result)
-                else -> onError.invoke()
-            }
-        }
-    }
-
-    fun zapocniAnketu(anketa: Anketa, onSuccess: (groups: AnketaTaken) -> Unit, onError: () -> Unit){ //mozda ne treba
-        scope.launch{
-            val result = TakeAnketaRepository.zapocniAnketu(anketa.id)
-            when (result) {
-                is AnketaTaken -> onSuccess.invoke(result)
-                else -> onError.invoke()
-            }
-        }
-    }*/
 }

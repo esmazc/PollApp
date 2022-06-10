@@ -14,8 +14,7 @@ interface Api {
     @POST("/student/{id}/anketa/{kid}")
     suspend fun startPoll(
         @Path("id") id: String,
-        @Path("kid") kid: Int,
-        //@Body anketaTaken: AnketaTaken
+        @Path("kid") kid: Int
     ): Response<AnketaTaken?>
 
     @GET("/student/{id}/anketataken")

@@ -12,14 +12,6 @@ import kotlinx.coroutines.launch
 class PollListViewModel {
     private val scope = CoroutineScope(Job() + Dispatchers.Main)
 
-    /*fun getAll() : List<Anketa>? {
-        var result: List<Anketa>? = null
-        scope.launch{
-            result = AnketaRepository.getAll()
-        }
-        return result
-    }*/
-
     fun getAll(onSuccess: (polls: List<Anketa>) -> Unit, onError: (() -> Unit)?){
         scope.launch{
             val result = AnketaRepository.getAll()
@@ -70,26 +62,6 @@ class PollListViewModel {
         }
     }
 
-    /*fun getAll(): List<Anketa> {
-        return AnketaRepository.getAll()
-    }
-
-    fun getMyAnkete(): List<Anketa> {
-        return AnketaRepository.getMyAnkete()
-    }
-
-    fun getDone(): List<Anketa> {
-        return AnketaRepository.getDone()
-    }
-
-    fun getFuture(): List<Anketa> {
-        return AnketaRepository.getFuture()
-    }
-
-    fun getNotTaken(): List<Anketa> {
-        return AnketaRepository.getNotTaken()
-    }*/
-
     fun startPoll(idAnketa: Int, onSuccess: ((anketaTaken: AnketaTaken) -> Unit)?, onError: (() -> Unit)?){
         scope.launch{
             val result = TakeAnketaRepository.zapocniAnketu(idAnketa)
@@ -99,6 +71,4 @@ class PollListViewModel {
             }
         }
     }
-
-
 }

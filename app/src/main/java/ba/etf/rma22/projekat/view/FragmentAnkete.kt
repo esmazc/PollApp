@@ -40,21 +40,14 @@ class FragmentAnkete : Fragment() {
         polls.layoutManager = GridLayoutManager(activity, 2)
         pollsAdapter = PollListAdapter(arrayListOf()) { poll -> showPollsQuestions(poll) }
         polls.adapter = pollsAdapter
-        //pollsAdapter.updatePolls(pollListViewModel.getMyAnkete().sortedBy { poll -> poll.datumPocetak })
 
         spinner = view.findViewById(R.id.filterAnketa)
-        //spinner.setSelection(0)
         //spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.filter_anketa, android.R.layout.simple_spinner_dropdown_item)
         //spinner.adapter = spinnerAdapter
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 polls.removeAllViews()
                 when(spinner.selectedItem.toString()) {
-                    /*"Sve moje ankete" -> pollsAdapter.updatePolls(pollListViewModel.getMyAnkete().sortedBy { poll -> poll.datumPocetak })
-                    "Sve ankete" -> pollsAdapter.updatePolls(pollListViewModel.getAll().sortedBy { poll -> poll.datumPocetak })
-                    "Urađene ankete" -> pollsAdapter.updatePolls(pollListViewModel.getDone().sortedBy { poll -> poll.datumPocetak })
-                    "Buduće ankete" -> pollsAdapter.updatePolls(pollListViewModel.getFuture().sortedBy { poll -> poll.datumPocetak })
-                    "Prošle ankete" -> pollsAdapter.updatePolls(pollListViewModel.getNotTaken().sortedBy { poll -> poll.datumPocetak })*/
                     "Sve moje ankete" -> pollListViewModel.getMyAnkete(onSuccess = ::onSuccess, null)
                     "Sve ankete" -> pollListViewModel.getAll(onSuccess = ::onSuccess, null)
                     "Urađene ankete" -> pollListViewModel.getDone(onSuccess = ::onSuccess, null)
@@ -78,19 +71,6 @@ class FragmentAnkete : Fragment() {
             pollListViewModel.startPoll(poll.id, null, null)
             pitanjeAnketaViewModel.getPitanja(poll.id, onSuccess = ::onSuccessShowPolls, null)
         }
-//        if(poll.stanje != Anketa.Stanje.NOTSTARTEDYET && pollListViewModel.getMyAnkete().contains(poll)) {
-//            val questions = pitanjeAnketaViewModel.getPitanja(poll.id, null, null)
-//            val fragments: ArrayList<Fragment> = arrayListOf()
-//            for (question: Pitanje in questions)
-//                fragments.add(FragmentPitanje(question, poll))
-//            if(fragments.size != 0) {
-//                MainActivity.viewPagerAdapter.removeAll()
-//                MainActivity.viewPagerAdapter.addAll(fragments)
-//                MainActivity.viewPager.currentItem = 0
-//            }
-//            //if(poll.stanje == Anketa.Stanje.ACTIVE)
-//            MainActivity.viewPagerAdapter.add(FragmentPredaj(poll))
-//        }
     }
 
     fun onSuccessShowPolls(pitanja: List<Pitanje>) {
@@ -112,9 +92,6 @@ class FragmentAnkete : Fragment() {
         Handler(Looper.getMainLooper()).postDelayed({
             if(MainActivity.viewPagerAdapter.fragments.size > 1 && MainActivity.viewPagerAdapter.getItem(1) is FragmentPoruka) {
                 spinner.setSelection(0)
-                //pollsAdapter.updatePolls(pollListViewModel.getMyAnkete().sortedBy { poll -> poll.datumPocetak })
-                //pollListViewModel.getAll(onSuccess = ::onSuccess)
-                //pollsAdapter.updatePolls(list)
                 pollListViewModel.getMyAnkete(onSuccess = ::onSuccess, null)
                 MainActivity.viewPagerAdapter.refresh(1, FragmentIstrazivanje())
             }

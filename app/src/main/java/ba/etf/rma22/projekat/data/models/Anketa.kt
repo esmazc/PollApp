@@ -30,7 +30,7 @@ data class Anketa(
         //if(datumPocetak > datumKraj || (datumRada != null && (datumRada!! < datumPocetak || datumRada!! > datumKraj))) throw IllegalArgumentException()
         val now = Date()
         //val anketaTaken = TakeAnketaRepository.getAnketaTaken(id)
-        when {               //NISAM SIGURNA DA LI JE UREDU DONE
+        when {
             //datumRada != null -> stanje = Stanje.DONE
             progres == 1f -> stanje = Stanje.DONE
             datumPocetak.after(now) -> stanje = Stanje.NOTSTARTEDYET

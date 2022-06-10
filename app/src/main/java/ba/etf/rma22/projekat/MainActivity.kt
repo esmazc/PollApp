@@ -24,21 +24,12 @@ class MainActivity : AppCompatActivity() {
         viewPager = findViewById(R.id.pager)
         viewPagerAdapter = ViewPagerAdapter(this, fragments)
         viewPager.adapter = viewPagerAdapter
-        /*viewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                if(viewPager.currentItem == 0 && viewPagerAdapter.getItem(0) is FragmentAnkete) {
-                    FragmentAnkete.pollsAdapter.updatePolls(FragmentAnkete.pollListViewModel.getMyAnkete().sortedBy { poll -> poll.datumPocetak })
-                    if(viewPagerAdapter.getItem(1) is FragmentPoruka)
-                        viewPagerAdapter.refresh(1, FragmentIstrazivanje())
-                }
-                super.onPageSelected(position)
-            }
-        })*/
     }
 
     /*private fun initAccount(){
         val scope = CoroutineScope(Job() + Dispatchers.Main)
-        scope.launch { println("POSTAVLJANJE HASHETA")
-            AccountRepository.postaviHash("4b9f0bb9-214f-4c5f-88d2-a69941de67be") }
+        scope.launch {
+            AccountRepository.postaviHash("4b9f0bb9-214f-4c5f-88d2-a69941de67be")
+        }
     }*/
 }

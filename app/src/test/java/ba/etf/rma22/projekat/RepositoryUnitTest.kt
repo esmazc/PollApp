@@ -100,7 +100,7 @@ class RepositoryUnitTest {
         var pitanja = PitanjeAnketaRepository.getPitanja(poceti!![poceti.size-1]?.AnketumId)
         var result = OdgovorRepository.postaviOdgovorAnketa(poceti!![poceti.size-1]?.id,pitanja!![0]?.id,1)
         assertThat(result,CoreMatchers.notNullValue())
-        assertThat(result,CoreMatchers.equalTo(50))
+        assertThat(result,CoreMatchers.equalTo(60))
         assertThat(OdgovorRepository.getOdgovoriAnketa(poceti!![poceti.size-1]?.AnketumId)!!.size,CoreMatchers.equalTo(1))
     }
     @Test
@@ -109,8 +109,7 @@ class RepositoryUnitTest {
         var poceti = TakeAnketaRepository.getPoceteAnkete()!!.map { ktid -> ankete!!.first{id -> id!!.id == ktid!!.AnketumId}}
         var nepoceti = AnketaRepository.getUpisane()!!.minus(poceti)
         assertThat(nepoceti.size, `is`(2))
-        nepoceti.forEach { println(it.naziv) }
-        assertThat(nepoceti, hasItem(nepoceti.first{it->it.naziv.contains("WT")}))
+        assertThat(nepoceti, hasItem(nepoceti.first{it->it.naziv.contains("Anketa 5")}))
     }
     @Test
     fun a9_provjeriAnkete() = runBlocking {
