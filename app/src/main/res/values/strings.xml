@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">PollApp</string>
     <string-array name="filter_anketa">
-        <item>Sve moje ankete</item>
         <item>Sve ankete</item>
+        <item>Sve moje ankete</item>
         <item>Urađene ankete</item>
         <item>Buduće ankete</item>
         <item>Prošle ankete</item>

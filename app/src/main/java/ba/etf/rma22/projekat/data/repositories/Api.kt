@@ -26,14 +26,14 @@ interface Api {
     suspend fun getPollAnswers(
         @Path("id") id: String,
         @Path("ktid") ktid: Int
-    ): Response<List<OdgovorResponse>?>
+    ): Response<List<Odgovor>?>
 
     @POST("/student/{id}/anketataken/{ktid}/odgovor")
     suspend fun setAnswer(
         @Path("id") id: String,
         @Path("ktid") ktid: Int,
         @Body odgovor: SetAnswerBody
-    ): Response<OdgovorResponse>
+    ): Response<Odgovor>
 
     @GET("/anketa")
     suspend fun getPolls(

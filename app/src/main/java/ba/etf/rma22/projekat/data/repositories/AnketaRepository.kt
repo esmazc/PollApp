@@ -1,11 +1,67 @@
 package ba.etf.rma22.projekat.data.repositories
 
+import android.content.Context
+import android.util.Log
+import ba.etf.rma22.projekat.data.AppDatabase
 import ba.etf.rma22.projekat.data.models.Anketa
+import ba.etf.rma22.projekat.data.models.AnketaGrupa
 import ba.etf.rma22.projekat.data.models.AnketaTaken
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 object AnketaRepository {
+
+    suspend fun writePolls(context: Context, polls: List<Anketa>) : String?{
+        return withContext(Dispatchers.IO) {
+            try{
+                val db = AppDatabase.getInstance(context)
+                db.anketaDao().delete()
+                //db.anketaDao().insertAll(polls)
+                for(poll in polls)
+                    db.anketaDao().insert(poll)
+                return@withContext "success"
+            }
+            catch(error:Exception){
+                return@withContext null
+            }
+        }
+    }
+
+    /*suspend fun writePolls(context: Context) : String?{
+        return withContext(Dispatchers.IO) {
+            try{
+                val polls = getAll()
+                val db = AppDatabase.getInstance(context)
+                db.anketaDao().delete()
+                //db.anketaDao().insertAll(polls)
+                for(poll in polls)
+                    db.anketaDao().insert(poll)
+                return@withContext "success"
+            }
+            catch(error:Exception){
+                return@withContext null
+            }
+        }
+    }*/
+
+    suspend fun updatePoll(context: Context, idAnketaTaken: Int, progres: Int) {
+        return withContext(Dispatchers.IO) {
+            val db = AppDatabase.getInstance(context)
+            val idAnketa = db.anketaTakenDao().getAll().find { at -> at.id == idAnketaTaken }!!.AnketumId
+            if(progres == 100)
+                db.anketaDao().update(idAnketa, progres / 100F, Anketa.Stanje.DONE)
+            else
+                db.anketaDao().update(idAnketa, progres / 100F, Anketa.Stanje.ACTIVE)
+        }
+    }
+
+    suspend fun getAll(context: Context) : List<Anketa> {
+        return withContext(Dispatchers.IO) {
+            val db = AppDatabase.getInstance(context)
+            val polls = db.anketaDao().getAll()
+            return@withContext polls
+        }
+    }
 
     suspend fun getAll(): List<Anketa> {
         val ankete = arrayListOf<Anketa>()
@@ -55,12 +111,24 @@ object AnketaRepository {
         //}
     }
 
+    suspend fun getDone(context: Context): List<Anketa> {
+        return getUpisane(context).filter { anketa -> anketa.stanje == Anketa.Stanje.DONE }
+    }
+
     suspend fun getDone(): List<Anketa> {
         return getUpisane().filter { anketa -> anketa.stanje == Anketa.Stanje.DONE }
     }
 
+    suspend fun getFuture(context: Context): List<Anketa> {
+        return getUpisane(context).filter { anketa -> anketa.stanje == Anketa.Stanje.ACTIVE || anketa.stanje == Anketa.Stanje.NOTSTARTEDYET }
+    }
+
     suspend fun getFuture(): List<Anketa> {
         return getUpisane().filter { anketa -> anketa.stanje == Anketa.Stanje.ACTIVE || anketa.stanje == Anketa.Stanje.NOTSTARTEDYET }
+    }
+
+    suspend fun getNotTaken(context: Context): List<Anketa> {
+        return getUpisane(context).filter { anketa -> anketa.stanje == Anketa.Stanje.ENDED }
     }
 
     suspend fun getNotTaken(): List<Anketa> {
@@ -79,6 +147,33 @@ object AnketaRepository {
         return withContext(Dispatchers.IO) {
             val response = ApiAdapter.retrofit.getPollById(id)
             return@withContext response.body()
+        }
+    }
+
+    suspend fun getUpisane(context: Context): List<Anketa> {
+        /*return withContext(Dispatchers.IO) {
+            val db = AppDatabase.getInstance(context)
+            val anketaTakens = db.anketaTakenDao().getAll()
+            val anketeIds = anketaTakens.map { a -> a.AnketumId }
+            var upisaneAnkete = getAll(context)
+            upisaneAnkete = upisaneAnkete.filter { a -> anketeIds.contains(a.id) }*/
+        val upisaneAnkete = arrayListOf<Anketa>()
+        return withContext(Dispatchers.IO) {
+            val db = AppDatabase.getInstance(context)
+            val ankete = getAll(context)
+            val upisaneGrupe = IstrazivanjeIGrupaRepository.getUpisaneGrupe(context)
+            for (i in upisaneGrupe) {
+                //val istrazivanjeGrupa = db.istrazivanjeDao().getOne(i.IstrazivanjeId)
+                //val anketeGrupa = ankete.filter { a -> a.nazivIstrazivanja.contains(istrazivanjeGrupa.naziv) }
+                val anketeGrupa = db.anketaGrupaDao().getAll().filter { ag -> ag.GrupaId == i.id }
+                for (j in anketeGrupa) {
+                    val anketa = ankete.find { a -> a.id == j.AnketumId }
+                    if(!upisaneAnkete.contains(anketa))
+                        upisaneAnkete.add(anketa!!)
+                        //upisaneAnkete.add(ankete.find { anketa -> anketa.id == j.id }!!)
+                }
+            }
+            return@withContext upisaneAnkete
         }
     }
 
@@ -118,6 +213,30 @@ object AnketaRepository {
                 a.postaviStanje()*/
             //}
             return@withContext upisaneAnkete
+        }
+    }
+
+    suspend fun writeAnketaGrupa(context: Context) : String?{
+        return withContext(Dispatchers.IO) {
+            try{
+                val db = AppDatabase.getInstance(context)
+                db.anketaGrupaDao().delete()
+                val ankete = getAll(context)
+                //val anketeGrupe = arrayListOf<AnketaGrupa>()
+                for(a in ankete) {
+                    val grupe = ApiAdapter.retrofit.getGroupsForPoll(a.id).body()
+                    for(g in grupe!!) {
+                        //anketeGrupe.add(AnketaGrupa(i, g.id, a.id))
+                        db.anketaGrupaDao().insert(AnketaGrupa(g.id, a.id))
+                    }
+                }
+                //for(anketaGrupa in anketeGrupe)
+                  //  db.anketaGrupaDao().insert(anketaGrupa)
+                return@withContext "success"
+            }
+            catch(error:Exception){
+                return@withContext null
+            }
         }
     }
 }

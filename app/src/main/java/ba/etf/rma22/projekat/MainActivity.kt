@@ -7,6 +7,7 @@ import ba.etf.rma22.projekat.data.repositories.AccountRepository
 import ba.etf.rma22.projekat.data.repositories.ApiAdapter
 import ba.etf.rma22.projekat.view.FragmentAnkete
 import ba.etf.rma22.projekat.view.FragmentIstrazivanje
+import ba.etf.rma22.projekat.view.FragmentPitanje
 import ba.etf.rma22.projekat.view.ViewPagerAdapter
 
 class MainActivity : AppCompatActivity() {
@@ -19,11 +20,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         //initAccount()
-
         val fragments = mutableListOf(FragmentAnkete.newInstance(), FragmentIstrazivanje.newInstance())
         viewPager = findViewById(R.id.pager)
         viewPagerAdapter = ViewPagerAdapter(this, fragments)
         viewPager.adapter = viewPagerAdapter
+        viewPager.context?.let {
+            if(InternetConnectivity.isOnline(it)) {
+                FragmentAnkete.pollListViewModel.writeResearchesAndGroups(it, null, null)
+                FragmentAnkete.pollListViewModel.writeAnketaTakens(it, null, null)
+                FragmentAnkete.pollListViewModel.writeAnketaGrupa(it, null, null)
+                FragmentAnkete.pollListViewModel.writePitanjaIPitanjaAnketa(it, null, null)
+                FragmentPitanje.pitanjeAnketaViewModel.writeOdgovori(it, null, null)
+            }
+        }
     }
 
     /*private fun initAccount(){

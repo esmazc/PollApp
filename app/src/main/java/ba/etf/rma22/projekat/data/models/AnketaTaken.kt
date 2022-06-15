@@ -1,14 +1,18 @@
 package ba.etf.rma22.projekat.data.models
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
-class AnketaTaken(
-    @SerializedName("id") val id: Int,
-    @SerializedName("sudent") var student: String,
-    @SerializedName("progres") var progres: Float,
-    @SerializedName("datumRada") var datumRada: Date?,
-    @SerializedName("AnketumId") var AnketumId: Int
+@Entity
+data class AnketaTaken(
+    @PrimaryKey @SerializedName("id") val id: Int,
+    @ColumnInfo(name = "student") @SerializedName("student") var student: String,
+    @ColumnInfo(name = "progres") @SerializedName("progres") var progres: Float,
+    @ColumnInfo(name = "datumRada") @SerializedName("datumRada") var datumRada: Date?,
+    @ColumnInfo(name = "AnketumId") @SerializedName("AnketumId") var AnketumId: Int
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

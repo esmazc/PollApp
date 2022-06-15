@@ -1,6 +1,7 @@
 package ba.etf.rma22.projekat.view
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
+import ba.etf.rma22.projekat.InternetConnectivity
 import ba.etf.rma22.projekat.MainActivity
 import ba.etf.rma22.projekat.R
 import ba.etf.rma22.projekat.data.models.Anketa
@@ -26,7 +28,11 @@ class FragmentPredaj(private val poll: Anketa) : Fragment() {
         progres = view.findViewById(R.id.progresTekst)
         button = view.findViewById(R.id.dugmePredaj)
 
-        if(poll.stanje != Anketa.Stanje.ACTIVE) button.isEnabled = false
+        context?.let {
+            if(!InternetConnectivity.isOnline(it) || poll.stanje != Anketa.Stanje.ACTIVE)
+                button.isEnabled = false
+        }
+        //if(poll.stanje != Anketa.Stanje.ACTIVE) button.isEnabled = false
 
         button.setOnClickListener {
 //            poll.stanje = Anketa.Stanje.DONE
@@ -52,7 +58,9 @@ class FragmentPredaj(private val poll: Anketa) : Fragment() {
     override fun onResume() {
         super.onResume()
 //        var pr = 0F
-        pitanjeAnketaViewModel.getAnketaTaken(poll.id, onSuccess = ::onSuccess, null)
+        context?.let {
+            pitanjeAnketaViewModel.getAnketaTaken(it, poll.id, onSuccess = ::onSuccess, null)
+        }
 //        var progr: Float = floor(pr * 10) * 10
 //        if((progr / 2) % 2 != 0F)
 //            progr += 10
@@ -61,7 +69,7 @@ class FragmentPredaj(private val poll: Anketa) : Fragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    fun onSuccess(anketaTaken: AnketaTaken) {
+    fun onSuccess(context: Context, anketaTaken: AnketaTaken) {
         progres.text = anketaTaken.progres.toInt().toString() + "%"
     }
 }

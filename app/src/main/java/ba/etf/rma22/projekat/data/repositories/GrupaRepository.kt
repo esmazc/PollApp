@@ -6,7 +6,7 @@ import kotlinx.coroutines.withContext
 
 object GrupaRepository {
 
-    suspend fun getGroupsByIstrazivanje(nazivIstrazivanja: String): List<Grupa> {
+    /*suspend fun getGroupsByIstrazivanje(nazivIstrazivanja: String): List<Grupa> {
         return withContext(Dispatchers.IO) {
             val istrazivanje = IstrazivanjeIGrupaRepository.getIstrazivanja()!!.find { istrazivanje -> istrazivanje.naziv == nazivIstrazivanja }
             val response = ApiAdapter.retrofit.getResearcheById(istrazivanje!!.id)
@@ -15,5 +15,5 @@ object GrupaRepository {
             grupe!!.filter { grupa -> grupa.nazivIstrazivanja == istrazivanje1!!.naziv }
             return@withContext grupe
         }
-    }
+    }*/
 }

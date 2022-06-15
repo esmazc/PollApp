@@ -10,13 +10,13 @@ import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import ba.etf.rma22.projekat.InternetConnectivity
 import ba.etf.rma22.projekat.MainActivity
 import ba.etf.rma22.projekat.R
 import ba.etf.rma22.projekat.data.models.Anketa
 import ba.etf.rma22.projekat.data.models.AnketaTaken
 import ba.etf.rma22.projekat.data.models.Odgovor
 import ba.etf.rma22.projekat.data.models.Pitanje
-import ba.etf.rma22.projekat.data.repositories.OdgovorResponse
 import ba.etf.rma22.projekat.viewmodel.PitanjeAnketaViewModel
 
 class FragmentPitanje(private val question: Pitanje, private val poll: Anketa) : Fragment() {
@@ -25,8 +25,10 @@ class FragmentPitanje(private val question: Pitanje, private val poll: Anketa) :
     private lateinit var button: Button
     private lateinit var answersAdapter: ListViewAdapter
     private var flag = -1
-    private var pitanjeAnketaViewModel = PitanjeAnketaViewModel()
     private var odgovoreno = false
+    companion object {
+        var pitanjeAnketaViewModel = PitanjeAnketaViewModel()
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.pitanje_fragment, container, false)
@@ -46,7 +48,9 @@ class FragmentPitanje(private val question: Pitanje, private val poll: Anketa) :
                 odgovoreno = true
                 flag = position
                 answersAdapter.notifyDataSetChanged()
-                pitanjeAnketaViewModel.getAnketaTaken(poll.id, onSuccess = ::onSuccess, null)
+                context?.let {
+                    pitanjeAnketaViewModel.getAnketaTaken(it, poll.id, onSuccess = ::onSuccess, null)
+                }
             }
         }
 
@@ -91,9 +95,9 @@ class FragmentPitanje(private val question: Pitanje, private val poll: Anketa) :
             answerText.text = question.opcije[p0]
 
             //if(flag == p0 && poll.stanje == Anketa.Stanje.ACTIVE && !odgovori.map { odgovor -> odgovor.id }.contains(question.id))
-            if(flag == p0 && poll.stanje == Anketa.Stanje.ACTIVE && !odgovori.map { odgovor -> odgovor.pitanjeId }.contains(question.id))
+            if(InternetConnectivity.isOnline(context) && flag == p0 && poll.stanje == Anketa.Stanje.ACTIVE && !odgovori.map { odgovor -> odgovor.pitanjeId }.contains(question.id))
                 answerText.setTextColor(ContextCompat.getColor(context, R.color.answer_click))
-            pitanjeAnketaViewModel.getAnswersForPoll1(poll.id, onSuccess = ::onSuccessGetAnswers, null, p0, answerText)
+            pitanjeAnketaViewModel.getAnswersForPoll(context, poll.id, onSuccess = ::onSuccessGetAnswers, null, p0, answerText)
             //pitanjeAnketaViewModel.getAnswersForPoll(poll.id, onSuccess = ::onSuccessGetAnswers, null, p0, answerText)
 
             return rowView
@@ -111,8 +115,8 @@ class FragmentPitanje(private val question: Pitanje, private val poll: Anketa) :
         }
     }*/
 
-    private var odgovori = listOf<OdgovorResponse>()
-    fun onSuccessGetAnswers(answers: List<OdgovorResponse>, position: Int, answerText: TextView) {
+    private var odgovori = listOf<Odgovor>()
+    fun onSuccessGetAnswers(answers: List<Odgovor>, position: Int, answerText: TextView) {
         odgovori = answers
         for(o in odgovori) {
             if(o.pitanjeId == question.id) {
@@ -125,7 +129,8 @@ class FragmentPitanje(private val question: Pitanje, private val poll: Anketa) :
     fun onSuccessPostAnswer(progres: Int) {
     }
 
-    fun onSuccess(anketaTaken: AnketaTaken) {
-        pitanjeAnketaViewModel.postAnswer(anketaTaken.id, question.id, flag, onSuccess = ::onSuccessPostAnswer, null)
+    fun onSuccess(context: Context, anketaTaken: AnketaTaken) {
+        if(InternetConnectivity.isOnline(context))
+            pitanjeAnketaViewModel.postAnswer(context, anketaTaken.id, question.id, flag, onSuccess = ::onSuccessPostAnswer, null)
     }
 }
