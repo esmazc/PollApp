@@ -23,7 +23,6 @@ class AnketaRepository {
                 try {
                     val db = AppDatabase.getInstance(context)
                     db.anketaDao().delete()
-                    //db.anketaDao().insertAll(polls)
                     for (poll in polls)
                         db.anketaDao().insert(poll)
                     return@withContext "success"
@@ -37,8 +36,7 @@ class AnketaRepository {
         suspend fun updatePoll(idAnketaTaken: Int, progres: Int) {
             return withContext(Dispatchers.IO) {
                 val db = AppDatabase.getInstance(context)
-                val idAnketa =
-                    db.anketaTakenDao().getAll().find { at -> at.id == idAnketaTaken }!!.AnketumId
+                val idAnketa = db.anketaTakenDao().getAll().find { at -> at.id == idAnketaTaken }!!.AnketumId
                 if (progres == 100)
                     db.anketaDao().update(idAnketa, progres / 100F, Anketa.Stanje.DONE)
                 else
@@ -64,8 +62,7 @@ class AnketaRepository {
                         var flag = true
                         val grupe = ApiAdapter.retrofit.getGroupsForPoll(a.id).body()
                         for (g in grupe!!) {
-                            val istrazivanje =
-                                IstrazivanjeIGrupaRepository.getIstrazivanjeZaGrupu(g.id)
+                            val istrazivanje = IstrazivanjeIGrupaRepository.getIstrazivanjeZaGrupu(g.id)
                             if (!nazivIstrazivanja.contains(istrazivanje.naziv)) {
                                 if (!flag) nazivIstrazivanja += ", " + istrazivanje.naziv
                                 else {
