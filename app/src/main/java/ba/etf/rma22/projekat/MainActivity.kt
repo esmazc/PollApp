@@ -26,7 +26,8 @@ class MainActivity : AppCompatActivity() {
 
         AccountRepository.setContext(applicationContext)
         val payload = intent?.getStringExtra("payload")
-        if(payload == null) FragmentAnkete.pollListViewModel.postaviHash("4b9f0bb9-214f-4c5f-88d2-a69941de67be", null, null)
+        if(payload == null)
+            FragmentAnkete.pollListViewModel.postaviHash("4b9f0bb9-214f-4c5f-88d2-a69941de67be", null, null)
         else
             FragmentAnkete.pollListViewModel.postaviHash(payload, null, null)
 
