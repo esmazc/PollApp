@@ -91,12 +91,10 @@ class IstrazivanjeIGrupaRepository {
             return withContext(Dispatchers.IO) {
                 val response = ApiAdapter.retrofit.getResearches(offset)
                 if (response.body().isNullOrEmpty()) return@withContext listOf()
-
                 val db = AppDatabase.getInstance(context)
                 db.istrazivanjeDao().delete()
                 for(istr in response.body()!!)
                     db.istrazivanjeDao().insert(istr)
-
                 return@withContext response.body()!!
             }
         }
