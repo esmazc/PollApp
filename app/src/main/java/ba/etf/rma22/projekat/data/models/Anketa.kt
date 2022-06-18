@@ -26,14 +26,9 @@ data class Anketa(
         NOTSTARTEDYET("zuta")
     }
 
-    //init {
     fun postaviStanje() {
-        //if(progres < 0 || progres > 1) throw IllegalArgumentException()
-        //if(datumPocetak > datumKraj || (datumRada != null && (datumRada!! < datumPocetak || datumRada!! > datumKraj))) throw IllegalArgumentException()
         val now = Date()
-        //val anketaTaken = TakeAnketaRepository.getAnketaTaken(id)
         when {
-            //datumRada != null -> stanje = Stanje.DONE
             progres == 1f -> stanje = Stanje.DONE
             datumPocetak.after(now) -> stanje = Stanje.NOTSTARTEDYET
             datumKraj == null || datumKraj.after(now) -> stanje = Stanje.ACTIVE

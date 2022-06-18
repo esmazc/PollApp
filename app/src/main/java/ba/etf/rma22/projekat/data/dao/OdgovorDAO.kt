@@ -17,4 +17,6 @@ interface OdgovorDAO {
     suspend fun insert(vararg odgovor: Odgovor)
     @Query("DELETE FROM Odgovor")
     suspend fun delete()
+    //@Query("UPDATE Odgovor SET odgovoreno=:odgovoreno WHERE AnketaTakenId=:idAnketaTaken AND PitanjeId=:idPitanja")
+    //suspend fun update(idAnketaTaken: Int, idPitanja: Int, odgovoreno: Int)
 }

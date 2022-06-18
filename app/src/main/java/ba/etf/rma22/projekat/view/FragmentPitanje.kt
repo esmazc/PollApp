@@ -27,6 +27,7 @@ class FragmentPitanje(private val question: Pitanje, private val poll: Anketa) :
     private var flag = -1
     private var odgovoreno = false
     companion object {
+        lateinit var context: Context
         var pitanjeAnketaViewModel = PitanjeAnketaViewModel()
     }
 
@@ -44,12 +45,12 @@ class FragmentPitanje(private val question: Pitanje, private val poll: Anketa) :
         answersAdapter = activity?.let { ListViewAdapter(it) }!!
         answers.adapter = answersAdapter
         answers.setOnItemClickListener { _, _, position, _ ->
-            if(poll.stanje == Anketa.Stanje.ACTIVE && !odgovoreno/* && !odgovori.map { odgovor -> odgovor.id }.contains(question.id)*/) {
+            if(poll.stanje == Anketa.Stanje.ACTIVE && !odgovoreno) {
                 odgovoreno = true
                 flag = position
                 answersAdapter.notifyDataSetChanged()
                 context?.let {
-                    pitanjeAnketaViewModel.getAnketaTaken(it, poll.id, onSuccess = ::onSuccess, null)
+                    pitanjeAnketaViewModel.getAnketaTaken(poll.id, onSuccess = ::onSuccess, null)
                 }
             }
         }
@@ -94,26 +95,13 @@ class FragmentPitanje(private val question: Pitanje, private val poll: Anketa) :
             val answerText: TextView = rowView.findViewById(R.id.answerTxt)
             answerText.text = question.opcije[p0]
 
-            //if(flag == p0 && poll.stanje == Anketa.Stanje.ACTIVE && !odgovori.map { odgovor -> odgovor.id }.contains(question.id))
             if(InternetConnectivity.isOnline(context) && flag == p0 && poll.stanje == Anketa.Stanje.ACTIVE && !odgovori.map { odgovor -> odgovor.pitanjeId }.contains(question.id))
                 answerText.setTextColor(ContextCompat.getColor(context, R.color.answer_click))
-            pitanjeAnketaViewModel.getAnswersForPoll(context, poll.id, onSuccess = ::onSuccessGetAnswers, null, p0, answerText)
-            //pitanjeAnketaViewModel.getAnswersForPoll(poll.id, onSuccess = ::onSuccessGetAnswers, null, p0, answerText)
+            pitanjeAnketaViewModel.getAnswersForPoll(poll.id, onSuccess = ::onSuccessGetAnswers, null, p0, answerText)
 
             return rowView
         }
     }
-
-    /*private var odgovori = listOf<Odgovor>()
-    fun onSuccessGetAnswers(answers: List<Odgovor>, position: Int, answerText: TextView) {
-        odgovori = answers
-        for(o in odgovori) {
-            if(o.id == question.id) {
-                if(o.odgovoreno == position)
-                    answerText.setTextColor(ContextCompat.getColor(requireContext(), R.color.answer_click))
-            }
-        }
-    }*/
 
     private var odgovori = listOf<Odgovor>()
     fun onSuccessGetAnswers(answers: List<Odgovor>, position: Int, answerText: TextView) {
@@ -129,8 +117,8 @@ class FragmentPitanje(private val question: Pitanje, private val poll: Anketa) :
     fun onSuccessPostAnswer(progres: Int) {
     }
 
-    fun onSuccess(context: Context, anketaTaken: AnketaTaken) {
-        if(InternetConnectivity.isOnline(context))
-            pitanjeAnketaViewModel.postAnswer(context, anketaTaken.id, question.id, flag, onSuccess = ::onSuccessPostAnswer, null)
+    fun onSuccess(anketaTaken: AnketaTaken) {
+        if(InternetConnectivity.isOnline(requireContext()))
+            pitanjeAnketaViewModel.postAnswer(anketaTaken.id, question.id, flag, onSuccess = ::onSuccessPostAnswer, null)
     }
 }

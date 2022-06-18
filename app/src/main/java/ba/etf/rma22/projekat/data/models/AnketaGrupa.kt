@@ -7,7 +7,6 @@ import com.google.gson.annotations.SerializedName
 
 @Entity
 data class AnketaGrupa(
-    //@PrimaryKey @SerializedName("id") val id: Int,
     @ColumnInfo(name = "GrupaId") @SerializedName("GrupaId") val GrupaId: Int,
     @ColumnInfo(name = "AnketumId") @SerializedName("AnketumId") val AnketumId: Int
 ) {

@@ -11,11 +11,6 @@ data class Istrazivanje (
     @ColumnInfo(name = "naziv") @SerializedName("naziv") val naziv: String,
     @ColumnInfo(name = "godina") @SerializedName("godina") val godina: Int
 ) {
-
-    /*init {
-        if(godina < 1 || godina > 5) throw IllegalArgumentException()
-    }*/
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

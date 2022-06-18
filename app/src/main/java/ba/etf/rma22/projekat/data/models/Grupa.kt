@@ -12,7 +12,6 @@ data class Grupa(
     @ColumnInfo(name = "IstrazivanjeId") @SerializedName("IstrazivanjeId") val IstrazivanjeId: Int,
     var upisana: Int = 0
 ) {
-    //val nazivIstrazivanja: String = ""
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

@@ -13,8 +13,6 @@ interface AnketaDAO {
     suspend fun getAll(): List<Anketa>
     @Insert
     suspend fun insert(vararg poll: Anketa)
-    //@Insert
-    //suspend fun insertAll(vararg polls: List<Anketa>)
     @Query("DELETE FROM Anketa")
     suspend fun delete()
     @Query("UPDATE Anketa SET progres=:progres, stanje=:stanje WHERE id=:idAnketa")

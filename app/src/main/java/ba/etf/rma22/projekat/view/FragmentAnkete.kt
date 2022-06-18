@@ -48,16 +48,7 @@ class FragmentAnkete : Fragment() {
         //spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.filter_anketa, android.R.layout.simple_spinner_dropdown_item)
         //spinner.adapter = spinnerAdapter
         context?.let {
-            //if(InternetConnectivity.isOnline(it))
-                pollListViewModel.getMyAnkete(it, onSuccess = ::onSuccess1, null)
-            //if(InternetConnectivity.isOnline(it)) {
-                //pollListViewModel.writeResearchesAndGroups(it, null, null)
-                //pollListViewModel.writeAnketaTakens(it, null, null)
-                //pollListViewModel.writeAnketaGrupa(it, null, null)
-                //pollListViewModel.writePitanjaIPitanjaAnketa(it, null, null)
-                //FragmentPitanje.pitanjeAnketaViewModel.writeOdgovori(it, null, null)
-            //}
-
+                pollListViewModel.getMyAnkete(onSuccess = ::onSuccess1, null)
         }
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
@@ -65,32 +56,27 @@ class FragmentAnkete : Fragment() {
                 when(spinner.selectedItem.toString()) {
                     "Sve ankete" -> {
                         context?.let {
-                            pollListViewModel.getAll(it, onSuccess = ::onSuccess, null)
-                            /*if(InternetConnectivity.isOnline(it)) {
-                                pollListViewModel.writeResearchesAndGroups(it, null, null)
-                                pollListViewModel.writeAnketaTakens(it, null, null)
-                                pollListViewModel.writeAnketaGrupa(it, null, null)
-                            }*/
+                            pollListViewModel.getAll(onSuccess = ::onSuccess, null)
                         }
                     }
                     "Sve moje ankete" -> {
                         context?.let {
-                            pollListViewModel.getMyAnkete(it, onSuccess = ::onSuccess, null)
+                            pollListViewModel.getMyAnkete(onSuccess = ::onSuccess, null)
                         }
                     }
                     "Urađene ankete" -> {
                         context?.let {
-                            pollListViewModel.getDone(it, onSuccess = ::onSuccess, null)
+                            pollListViewModel.getDone(onSuccess = ::onSuccess, null)
                         }
                     }
                     "Buduće ankete" -> {
                         context?.let {
-                            pollListViewModel.getFuture(it, onSuccess = ::onSuccess, null)
+                            pollListViewModel.getFuture(onSuccess = ::onSuccess, null)
                         }
                     }
                     "Prošle ankete" -> {
                         context?.let {
-                            pollListViewModel.getNotTaken(it, onSuccess = ::onSuccess, null)
+                            pollListViewModel.getNotTaken(onSuccess = ::onSuccess, null)
                         }
                     }
                 }
@@ -110,10 +96,9 @@ class FragmentAnkete : Fragment() {
         if(poll.stanje != Anketa.Stanje.NOTSTARTEDYET && myAnkete.contains(poll)) {
             context?.let {
                 if(InternetConnectivity.isOnline(it)) {
-                    pollListViewModel.startPoll(it, poll.id, null, null)
-                    //pollListViewModel.writeAnketaTaken(it, anketaTaken, null, null)
+                    pollListViewModel.startPoll(poll.id, null, null)
                 }
-                pitanjeAnketaViewModel.getPitanja(it, poll.id, onSuccess = ::onSuccessShowPolls, null)
+                pitanjeAnketaViewModel.getPitanja(poll.id, onSuccess = ::onSuccessShowPolls, null)
             }
         }
     }
@@ -138,8 +123,8 @@ class FragmentAnkete : Fragment() {
             if(MainActivity.viewPagerAdapter.fragments.size > 1 && MainActivity.viewPagerAdapter.getItem(1) is FragmentPoruka) {
                 spinner.setSelection(0)
                 context?.let {
-                    pollListViewModel.getMyAnkete(it, onSuccess = ::onSuccess1, null)
-                    pollListViewModel.getAll(it, onSuccess = ::onSuccess, null)
+                    pollListViewModel.getMyAnkete(onSuccess = ::onSuccess1, null)
+                    pollListViewModel.getAll(onSuccess = ::onSuccess, null)
                 }
                 MainActivity.viewPagerAdapter.refresh(1, FragmentIstrazivanje())
             }
@@ -147,23 +132,15 @@ class FragmentAnkete : Fragment() {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun onSuccess(context: Context, ankete: List<Anketa>) {
+    private fun onSuccess(ankete: List<Anketa>) {
         pollsAdapter.updatePolls(ankete.sortedBy { poll -> poll.datumPocetak })
         if(spinner.selectedItem.toString() == "Sve moje ankete")
             myAnkete = ankete
-        //if(InternetConnectivity.isOnline(context) && spinner.selectedItem.toString() == "Sve ankete") {
-            //pollListViewModel.writePolls(context, ankete, null, null)
-            //pollListViewModel.writeResearchesAndGroups(context, null, null)
-        //}
         pollsAdapter.notifyDataSetChanged()
     }
 
-    private fun onSuccessStartPoll(anketaTaken: AnketaTaken){
-
-    }
-
     @SuppressLint("NotifyDataSetChanged")
-    private fun onSuccess1(context: Context, ankete: List<Anketa>) {
+    private fun onSuccess1(ankete: List<Anketa>) {
         myAnkete = ankete
     }
 }

@@ -63,13 +63,7 @@ class PollListAdapter(
             }
         }
         viewHolder.pollDate.text = s
-
-        /*var progres: Float = floor(polls[position].progres * 10) * 10
-        if((progres / 2) % 2 != 0F)
-            progres += 10
-        viewHolder.pollProgressBar.progress = progres.toInt()*/
         viewHolder.pollProgressBar.progress = (polls[position].progres * 100).toInt()
-
         viewHolder.itemView.setOnClickListener{ onItemClick(polls[position]) }
     }
 

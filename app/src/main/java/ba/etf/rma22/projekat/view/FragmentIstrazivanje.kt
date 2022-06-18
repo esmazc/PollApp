@@ -1,6 +1,5 @@
 package ba.etf.rma22.projekat.view
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,7 +16,7 @@ import ba.etf.rma22.projekat.data.models.Grupa
 import ba.etf.rma22.projekat.data.models.Istrazivanje
 import ba.etf.rma22.projekat.viewmodel.UpisIstrazivanjeViewModel
 
-class FragmentIstrazivanje() : Fragment() {
+class FragmentIstrazivanje : Fragment() {
     private lateinit var spinnerGodina: Spinner
     private lateinit var spinnerIstrazivanje: Spinner
     private lateinit var spinnerGrupa: Spinner
@@ -52,7 +51,7 @@ class FragmentIstrazivanje() : Fragment() {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 val godina = spinnerGodina.selectedItem.toString().toInt()
                 context?.let {
-                    upisIstrazivanjeViewModel.getIstrazivanjeByGodina(it, godina, onSuccess = ::onSuccessResearches, null)
+                    upisIstrazivanjeViewModel.getIstrazivanjeByGodina(godina, onSuccess = ::onSuccessResearches, null)
                 }
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -62,7 +61,7 @@ class FragmentIstrazivanje() : Fragment() {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 istrazivanje = spinnerIstrazivanje.selectedItem as Istrazivanje
                 context?.let {
-                    upisIstrazivanjeViewModel.getGroupsByIstrazivanje(it, istrazivanje.id, onSuccess = ::onSuccessGroups, null)
+                    upisIstrazivanjeViewModel.getGroupsByIstrazivanje(istrazivanje.id, onSuccess = ::onSuccessGroups, null)
                 }
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -84,16 +83,16 @@ class FragmentIstrazivanje() : Fragment() {
         button.setOnClickListener {
             if(button.isEnabled) {
                 context?.let {
-                    upisIstrazivanjeViewModel.upisiUGrupu(it, grupa.id, onSuccess = ::onSuccessEnroll, null)
+                    upisIstrazivanjeViewModel.upisiUGrupu(grupa.id, onSuccess = ::onSuccessEnroll, null)
                 }
             }
         }
         return view
     }
 
-    fun onSuccessResearches(context: Context, istrazivanja: List<Istrazivanje>) {
+    fun onSuccessResearches(istrazivanja: List<Istrazivanje>) {
         researches = istrazivanja
-        upisIstrazivanjeViewModel.getUpisani(context, onSuccess = ::onSuccessEnrolledResearches, null)
+        upisIstrazivanjeViewModel.getUpisani(onSuccess = ::onSuccessEnrolledResearches, null)
     }
 
     fun onSuccessEnrolledResearches(upisanaIstrazivanja: List<Istrazivanje>) {
@@ -114,12 +113,10 @@ class FragmentIstrazivanje() : Fragment() {
             spinnerGrupaAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, listOf(Grupa(0, "", 0)))
             spinnerGrupa.adapter = spinnerGrupaAdapter
         }
-//        if(InternetConnectivity.isOnline(context))
-//            upisIstrazivanjeViewModel.writeResearches(context, researches, null, null)
         //******
     }
 
-    fun onSuccessGroups(context: Context, grupe: List<Grupa>) {
+    fun onSuccessGroups(grupe: List<Grupa>) {
         groups = grupe
         val grupaList: ArrayList<Grupa> = arrayListOf()
         //***obrisati
@@ -128,9 +125,8 @@ class FragmentIstrazivanje() : Fragment() {
         grupaList.addAll(groups)
         spinnerGrupaAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, grupaList)
         spinnerGrupa.adapter = spinnerGrupaAdapter
-        if(InternetConnectivity.isOnline(context)) {
+        if(InternetConnectivity.isOnline(requireContext())) {
             button.isEnabled = !(istrazivanje.naziv == "" || grupa.naziv == "")
-            //upisIstrazivanjeViewModel.writeGroups(context, groups, null, null)
         }
     }
 

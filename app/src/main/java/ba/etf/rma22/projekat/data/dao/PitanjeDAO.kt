@@ -15,8 +15,6 @@ interface PitanjeDAO {
     suspend fun getOne(id: Int): Pitanje
     @Insert
     suspend fun insert(vararg pitanje: Pitanje)
-    //@Update
-    //suspend fun update()
     @Query("DELETE FROM Pitanje")
     suspend fun delete()
 }

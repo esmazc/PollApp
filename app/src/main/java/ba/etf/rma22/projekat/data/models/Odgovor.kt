@@ -12,7 +12,6 @@ data class Odgovor(
     @ColumnInfo(name = "AnketaTakenId") @SerializedName("AnketaTakenId") val anketaTakenId: Int,
     @ColumnInfo(name = "PitanjeId") @SerializedName("PitanjeId") val pitanjeId: Int
 ) {
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

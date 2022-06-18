@@ -1,7 +1,6 @@
 package ba.etf.rma22.projekat.view
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -21,6 +20,7 @@ class FragmentPredaj(private val poll: Anketa) : Fragment() {
     private lateinit var progres: TextView
     private lateinit var button: Button
     private var pitanjeAnketaViewModel = PitanjeAnketaViewModel()
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.predaj_fragment, container, false)
@@ -57,19 +57,13 @@ class FragmentPredaj(private val poll: Anketa) : Fragment() {
 
     override fun onResume() {
         super.onResume()
-//        var pr = 0F
         context?.let {
-            pitanjeAnketaViewModel.getAnketaTaken(it, poll.id, onSuccess = ::onSuccess, null)
+            pitanjeAnketaViewModel.getAnketaTaken(poll.id, onSuccess = ::onSuccess, null)
         }
-//        var progr: Float = floor(pr * 10) * 10
-//        if((progr / 2) % 2 != 0F)
-//            progr += 10
-//        progres.text = progr.toInt().toString() + "%"
-//        poll.progres = pr
     }
 
     @SuppressLint("SetTextI18n")
-    fun onSuccess(context: Context, anketaTaken: AnketaTaken) {
+    fun onSuccess(anketaTaken: AnketaTaken) {
         progres.text = anketaTaken.progres.toInt().toString() + "%"
     }
 }
